@@ -1,0 +1,284 @@
+{% extends "common/template.html.twig" %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ asset('assets/css/trick.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('assets/js/trick.js') }}" defer></script>
+{% endblock %}
+
+{% block content %}
+<!-- Masthead-->
+<header class="masthead bg-primary text-white text-center d-flex flex-column px-2">
+    <div class="container d-flex align-items-center flex-column">
+        <!--Manager button
+        <div class="align-self-end">
+            <button href="#" class="btn btn-home-grid mx-3 my-auto rounded shadow-lg">
+                <i class="fa fa-pen" style='color: #fafafacc'></i>
+            </button>
+            <button href="#" class="btn btn-home-grid my-auto rounded shadow-lg" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                <i class="fa fa-trash" style='color: #fafafacc'></i>
+            </button>
+        </div>-->
+        <!-- Masthead Trick Title-->
+        <h1 class="masthead-heading text-uppercase text-secondary mb-0">Trick name</h1>
+        <!-- Masthead Subheading
+        <p class="masthead-subheading font-weight-light text-secondary mb-0">Trick group</p>-->
+    </div>
+</header>
+<!-- Trick Section-->
+
+<section class="page-section portfolio d-flex flex-column align-items-center p-5" id="add-trick">
+
+    <!-- Trick Media -->
+
+    <div id="container" class="py-4">
+        <div id="slider-container" class="position-relative">
+            <span onclick="slideRight()" class="carousel-btn carousel-control-prev">
+                <i class="fa fa-arrow-left fa-xl prev-icon"></i>
+            </span>
+            <div id="slider">
+                <div class="slide-item">
+                    <div class="carousel-item d-block active">
+                        <div class="card portfolio-item mx-auto">
+                            <div class="position-relative">
+                                <div
+                                    class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                    <div class="portfolio-item-caption-content text-center text-secondary">
+                                        See it !
+                                    </div>
+                                </div>
+                                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="...">
+                            </div>
+                            <div class="card-body d-flex  justify-content-center">
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex">
+                                        <i class="fa-brands fa-youtube fa-2xl my-auto" style="color: #ff0000;"></i>
+                                        <h5 class="card-title my-auto mx-3">Video</h5>
+                                    </div>
+                                    <div>
+                                        <button href="#" class="btn btn-home-grid my-auto rounded"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <i class="fa fa-trash" style='color: #fafafacc'></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-item">
+                    <div class="carousel-item d-block active">
+                        <div class="card portfolio-item mx-auto">
+                            <div class="position-relative">
+                                <div
+                                    class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                    <div class="portfolio-item-caption-content text-center text-secondary">
+                                        See it !
+                                    </div>
+                                </div>
+                                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="...">
+                            </div>
+                            <div class="card-body d-flex  justify-content-center">
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex">
+                                        <i class="fa-brands fa-youtube fa-2xl my-auto" style="color: #ff0000;"></i>
+                                        <h5 class="card-title my-auto mx-3">Video</h5>
+                                    </div>
+                                    <div>
+                                        <button href="#" class="btn btn-home-grid my-auto rounded"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <i class="fa fa-trash" style='color: #fafafacc'></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-item">
+                    <div class="carousel-item d-block active">
+                        <div class="card portfolio-item mx-auto">
+                            <div class="position-relative">
+                                <div
+                                    class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                    <div class="portfolio-item-caption-content text-center text-secondary">
+                                        See it !
+                                    </div>
+                                </div>
+                                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="...">
+                            </div>
+                            <div class="card-body d-flex  justify-content-center">
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex">
+                                        <i class="fa-brands fa-youtube fa-2xl my-auto" style="color: #ff0000;"></i>
+                                        <h5 class="card-title my-auto mx-3">Video</h5>
+                                    </div>
+                                    <div>
+                                        <button href="#" class="btn btn-home-grid my-auto rounded"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <i class="fa fa-trash" style='color: #fafafacc'></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-item">
+                    <div class="carousel-item d-block active">
+                        <div class="card portfolio-item mx-auto">
+                            <div class="position-relative">
+                                <div
+                                    class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                    <div class="portfolio-item-caption-content text-center text-secondary">
+                                        See it !
+                                    </div>
+                                </div>
+                                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="...">
+                            </div>
+                            <div class="card-body d-flex  justify-content-center">
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex">
+                                        <i class="fa fa-image fa-2xl my-auto" style='color: #fafafacc'></i>
+                                        <h5 class="card-title my-auto mx-3">Image</h5>
+                                    </div>
+                                    <div>
+                                        <button href="#" class="btn btn-home-grid my-auto rounded"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <i class="fa fa-trash" style='color: #fafafacc'></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-item">
+                    <div class="carousel-item d-block active">
+                        <div class="card portfolio-item mx-auto">
+                            <div class="position-relative">
+                                <div
+                                    class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                    <div class="portfolio-item-caption-content text-center text-secondary">
+                                        See it !
+                                    </div>
+                                </div>
+                                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="...">
+                            </div>
+                            <div class="card-body d-flex  justify-content-center">
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex">
+                                        <i class="fa fa-image fa-2xl my-auto" style='color: #fafafacc'></i>
+                                        <h5 class="card-title my-auto mx-3">Image</h5>
+                                    </div>
+                                    <div>
+                                        <button href="#" class="btn btn-home-grid my-auto rounded"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <i class="fa fa-trash" style='color: #fafafacc'></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-item">
+                    <div class="carousel-item d-block active">
+                        <div class="card portfolio-item mx-auto">
+                            <div class="position-relative">
+                                <div
+                                    class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                    <div class="portfolio-item-caption-content text-center text-secondary">
+                                        See it !
+                                    </div>
+                                </div>
+                                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="...">
+                            </div>
+                            <div class="card-body d-flex  justify-content-center">
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex">
+                                        <i class="fa fa-image fa-2xl my-auto" style='color: #fafafacc'></i>
+                                        <h5 class="card-title my-auto mx-3">Image</h5>
+                                    </div>
+                                    <div>
+                                        <button href="#" class="btn btn-home-grid my-auto rounded"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <i class="fa fa-trash" style='color: #fafafacc'></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span onclick="slideLeft()" class="carousel-btn carousel-control-next">
+                <i class="fa fa-arrow-right fa-xl next-icon"></i>
+            </span>
+        </div>
+    </div>
+
+    <form action="..." method="post" enctype="multipart/form-data">
+
+        <!--Trick description-->
+
+        <h2 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-4" id="trick-list">
+            Edit Description
+        </h2>
+
+        <div class="form-group">
+            <div class="input-group input-group-lg mb-4">
+                <input type="text" name="name" class="form-control text-white rounded" placeholder="Trick Name"
+                    required>
+            </div>
+        </div>
+
+        <div class="form-group input-group input-group-lg mb-4">
+            <select class="form-control rounded" name="trickGroup" id="trickGroup">
+                <option value="" selected disabled>--- Select a trick group ---</option>
+                <option value="1">Group 1</option>
+                <option value="2">Group 2</option>
+                <option value="3">Group 3</option>
+                <option value="4">Group 4</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <div class="input-group input-group-lg mb-4">
+                <textarea name="description" id="description" class="form-control text-white rounded" rows='5' cols="50"
+                    placeholder="Post a Trick description" required></textarea>
+            </div>
+        </div>
+
+        <!--Trick Media-->
+
+        <h2 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-4" id="trick-list">
+            Edit Media
+        </h2>
+
+        <div class="input-group input-group-lg mb-4 ">
+            <input type="url" class="form-control rounded" name="url" id="url" placeholder="Add a youtube trick url"
+                pattern="https://.*" required>
+        </div>
+
+        <div class="input-group input-group-lg position-relative" id="upload-input">
+            <button class="btn btn-outline-secondary px-4" type="button" id="button-addon1">Upload Image</button>
+        </div>
+
+        <div class="input-group input-group-lg mb-4">
+            <input class="form-control pl-0" type="file" id="formFileMultiple" multiple>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <input type="submit" name="submit" id="submit"
+                class="btn btn-home-grid mx-3 my-4 my-xl-auto  rounded shadow-lg" value="Save this Trick">
+            </input>
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

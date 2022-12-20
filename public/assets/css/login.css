@@ -1,0 +1,102 @@
+/*------login page------*/
+
+.login-wrap {
+    position: relative;
+    border-radius: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.login-wrap .img {
+    width: 160px;
+    height: 120px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.ftco-section {
+    background-color: #99deff;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.form-group .icon {
+    position: absolute;
+    top: 0;
+    left: 5px;
+    bottom: 0;
+    width: 20px;
+    height: 48px;
+    background: transparent;
+    font-size: 18px;
+    color: white;
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.fa-user:before {
+    content: "\f007";
+}
+
+.form-control {
+    height: 48px;
+    background: #1a252f;
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 14px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid #99deff;
+    padding-left: 30px;
+    padding-right: 0;
+    letter-spacing: 1px;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+::placeholder {
+    color: white !important;
+}
+
+.btn-login {
+    background: linear-gradient(#212529, #212529) padding-box,
+        linear-gradient(to right, var(--bs-secondary), #99deff) border-box;
+    background-color: #343a40;
+    border: 4px solid transparent;
+    color: #fafafacc;
+    text-decoration: none;
+    transition: all .4s ease;
+}
+
+.btn-login:hover,
+.btn-login:focus {
+    background: linear-gradient(var(--bs-secondary), #99deff) padding-box,
+        linear-gradient(#fafafacc, #fafafacc) border-box;
+    background-color: #343a40;
+    color: #1a252f;
+    border: 4px solid transparent;
+}
+
+
+@media (max-width: 767px) {
+
+    .masthead {
+        display: flex!important;
+        justify-content: center!important;
+        align-items: center!important;
+        padding: auto 0;
+    }
+
+}

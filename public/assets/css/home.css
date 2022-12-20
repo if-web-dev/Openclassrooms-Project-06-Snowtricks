@@ -1,0 +1,143 @@
+/*------special home page------*/
+
+:root {
+  --gradient: linear-gradient(to left top, #99deff, var(--bs-secondary)) !important;
+  --bs-body-bg: #1a252f !important;
+}
+
+body {
+  background: #1a252f !important;
+}
+
+.masthead {
+  padding-bottom: 2rem;
+}
+
+.card {
+  background: #222;
+  border: 1px solid #99deff;
+  color: rgba(250, 250, 250, 0.8);
+  width: 100%;
+}
+
+.btn-home-grid {
+  background: linear-gradient(#212529, #212529) padding-box,
+    linear-gradient(to right, var(--bs-secondary), #99deff) border-box;
+  background-color: #343a40;
+  border-radius: 5em;
+  border: 4px solid transparent;
+  text-decoration: none;
+  transition: all .4s ease;
+}
+
+.btn-home-grid:hover,
+.btn-home-grid:focus {
+  background: linear-gradient(var(--bs-secondary), #99deff) padding-box,
+    linear-gradient(#fafafacc, #fafafacc) border-box;
+  background-color: #343a40;
+  border-radius: 50em;
+  border: 4px solid transparent;
+}
+
+.btn-arrow {
+  height: 50px;
+  width: 50px;
+  background: #2c3e50;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.btn-arrow-up {
+  background-color: #99deff;
+  border: 5px solid var(--bs-secondary);
+  z-index: 1000;
+  position: fixed;
+  bottom: 80px;
+  right: 10px;
+}
+
+.load {
+  border-radius: 0.5rem !important;
+}
+
+.btn-arrow-down {
+  bottom: 20px;
+  right: 20px;
+}
+
+.icon-arrow {
+  width: 100px;
+  color: white;
+}
+
+@media screen and (max-width:575px) {
+
+  .masthead {
+    height: 80vh !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .masthead .align-self-end {
+    position: absolute;
+    top: 50px;
+  }
+
+  .masthead-avatar {
+    width: 15rem!important;
+  }
+
+  .btn-arrow-down {
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
+@media screen and (min-width:576px) {
+
+  .masthead {
+    height: 80vh !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    position: relative;
+  }
+
+  .masthead .align-self-end {
+    position: absolute;
+    top: 50px;
+  }
+
+  .masthead-avatar {
+    width: 15rem!important;
+  }
+
+}
+
+@media screen and (min-width:768px) {
+
+  .masthead {
+    height: 80vh !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+}
+
+@media screen and (min-width:992px) {
+
+  .masthead .align-self-end {
+    position: initial !important;
+  }
+
+  .masthead-avatar {
+    width: 20rem!important;
+  }
+
+}
