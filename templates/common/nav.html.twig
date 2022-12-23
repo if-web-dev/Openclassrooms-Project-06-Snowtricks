@@ -14,20 +14,22 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 text-primary rounded" href="index.html">Home</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 text-primary rounded" href="{{ path('home.index') }}">Home</a>
                     </li>
                     <span class="vertical-separation d-flex align-items-center">|</span>
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 text-primary rounded" href="login.html">login</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 text-primary rounded" href="{{ path('app_register') }}">Sign up</a>
                     </li>
                     <span class="vertical-separation d-flex align-items-center">|</span>
+                    {% if app.user %}
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 text-primary rounded" href="signup.html">Sign up</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 text-primary rounded" href="{{ path('app_logout') }}">Sign out</a>
                     </li>
-                    <span class="vertical-separation d-flex align-items-center">|</span>
+                    {% else %}
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 text-primary rounded" href="signout.html">Sign out</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 text-primary rounded" href="{{ path('app_login') }}">login</a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -36,19 +38,27 @@
     <nav id="nav-bottom" class="m-0 p-3 shadow-lg fixed-bottom row d-none">
         <ul class="row">
             <li class="col-4 d-flex align-items-center justify-content-center">
-                <a class="align-middle" href="home.html">
+                <a class="align-middle" href="{{ path('home.index') }}">
                     <i class="fa fa-home fa-2xl" style='color: #000; width: 50px'></i>
                 </a>
             </li>
             <li class="col-4 d-flex align-items-center justify-content-center">
-                <a class="align-middle" href="home.html">
+                <a class="align-middle" href="{{ path('app_register') }}">
                     <i class="fa fa-bookmark fa-2xl" style='color: #000; width: 50px'></i>
                 </a>
             </li>
+            {% if app.user %}
             <li class="col-4 d-flex align-items-center justify-content-center">
-                <a class="align-middle" href="home.html">
-                    <i class="fa fa-right-to-bracket fa-2xl" style='color: #000; width: 50px'></i>
+                <a class="align-middle" href="{{ path('app_logout') }}">
+                    <i class="fa fa-right-from-bracket fa-2xl" style='color: #000; width: 50px'></i>
                 </a>
             </li>
+            {% else %}
+            <li class="col-4 d-flex align-items-center justify-content-center">
+                <a class="align-middle" href="{{ path('app_login') }}">
+                    <i class="fa fa-right-to-bracket fa-2xl" style='color: #000; width: 50px'></i>
+                </a>
+            </li>   
+            {% endif %}
         </ul>
     </nav>
