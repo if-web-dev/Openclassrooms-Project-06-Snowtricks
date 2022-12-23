@@ -10,9 +10,20 @@
 
 {% block content %}
 
+
+
 <!-- Masthead-->
 <header class="masthead bg-primary text-white text-center position-relative px-2" id="homeMasthead">
+
+
     <div class=" row justify-content-center align-items-center">
+        <!-- Message flash -->
+        {% for message in app.flashes('warning') %}
+        <div class="alert alert-warning d">
+            {{ message }}
+        </div>
+        {% endfor %}
+
         <!-- Masthead Avatar Image-->
         <img class="masthead-avatar col-5" src="assets/images/snowboarder.png" alt="..." />
         <div class="col-7">
@@ -85,7 +96,7 @@
                         </div>
                     </div>
                 </div>
-                {% endfor %}                             
+                {% endfor %}
             </div>
         </div>
     </div>
