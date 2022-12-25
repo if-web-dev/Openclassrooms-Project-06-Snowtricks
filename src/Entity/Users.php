@@ -46,8 +46,14 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Email(
         message: 'The email {{ value }} is not a valid email.',
     )]
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $is_verified = false;
+
     #[ORM\Column(length: 255)]
     private ?string $email = null;
+
+
+
 
     public function __construct()
     {
@@ -205,6 +211,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->is_verified;
+    }
+
+    public function setIsVerified(bool $is_verified): self
+    {
+        $this->is_verified = $is_verified;
 
         return $this;
     }

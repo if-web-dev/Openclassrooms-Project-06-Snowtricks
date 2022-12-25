@@ -18,12 +18,25 @@
 
     <div class=" row justify-content-center align-items-center">
         <!-- Message flash -->
-        {% for message in app.flashes('warning') %}
-        <div class="alert alert-warning d">
-            {{ message }}
+    
+        {% if app.user and app.user.isVerified == false %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Your account is not acctivated. Resend your activation link</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        {% endfor %}
+        {% endif %}
+        {% if app.user and app.user.isVerified == true %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Hi <strong>{{ app.user.username }}</strong>, welcome to SnowTricks website
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
 
+
+        
+
+        {% include "common/flash.html.twig" %}
+    
         <!-- Masthead Avatar Image-->
         <img class="masthead-avatar col-5" src="assets/images/snowboarder.png" alt="..." />
         <div class="col-7">
@@ -52,17 +65,20 @@
     </a>
     <div>
         <!-- Trick Section Heading-->
-        <h2 class="page-section-heading text-center text-uppercase text-primary mb-0" id="trick-list">
+        <h2 class="page-section-heading text-center text-uppercase text-primary mb-5" id="trick-list">
             Trick List
         </h2>
 
-        <!--Add a Trick button-->
-        <div class="text-center">
-            <a href="addTrick.html" class="btn btn-home-grid load my-5" style="color: #fafafacc">
+        {% if app.user and app.user.isVerified == true %}
+         <!--Add a Trick button-->
+         <div class="text-center">
+            <a href="addTrick.html" class="btn btn-home-grid load mb-5" style="color: #fafafacc">
                 <i class="fa fa-plus" style='color: #fafafacc'></i>
                 Add a Trick
             </a>
         </div>
+        {% endif %}
+       
         <!-- Trick Grid Items-->
         <div class="container">
             <div class="row justify-content-center px-3">
@@ -84,6 +100,7 @@
                                 <h5 class="card-title">Name Trick</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
                             </div>
+                            {% if app.user and app.user.isVerified == true %}
                             <div class="d-flex">
                                 <a href="editTrick.html" class="btn btn-home-grid mx-3 my-auto rounded">
                                     <i class="fa fa-pen" style='color: #fafafacc'></i>
@@ -93,6 +110,7 @@
                                     <i class="fa fa-trash" style='color: #fafafacc'></i>
                                 </button>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
