@@ -14,7 +14,8 @@ class SecurityController extends AbstractController
     {
         
         if ($this->getUser()) {
-            $this->addFlash("warning", "you are already logged in " . $this->getUser()->getUserIdentifier() );
+
+           $this->addFlash("warning", "you are already logged in " . $this->getUser()->getUserIdentifier() );
            return $this->redirectToRoute('home.index');
         }
 
@@ -22,6 +23,7 @@ class SecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
+
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
