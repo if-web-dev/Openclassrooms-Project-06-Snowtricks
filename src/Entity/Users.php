@@ -22,7 +22,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
     private ?string $username = null;
 
     #[ORM\Column]
@@ -31,10 +31,10 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
-    #[ORM\Column]
+    #[ORM\Column(type: 'string')]
     private ?string $password = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $token = null;
 
     #[ORM\OneToMany(mappedBy: 'authorId', targetEntity: Tricks::class, orphanRemoval: true)]
@@ -44,12 +44,15 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $comments;
 
     #[Assert\Email(
-        message: 'The email {{ value }} is not a valid email.',
+    message: 'The email {{ value }} is not a valid email.',
     )]
     #[ORM\Column(type: 'boolean')]
     private ?bool $is_verified = false;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    private ?string $resetToken = null;
+
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $email = null;
 
 
@@ -226,5 +229,19 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken($resetToken): self
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+
 
 }
