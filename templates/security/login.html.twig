@@ -12,6 +12,9 @@
             {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
+
+            {% include "common/flash.html.twig" %}
+            
             <div class="col-md-6 col-lg-4">
                 <div id="login" class="login-wrap bg-secondary py-3 shadow d-block">
                     <a href="index.html" class="d-flex align-items-center justify-content-center p-4">
@@ -41,7 +44,7 @@
                             </button>
                         </div>
                         <div class="w-100 text-center">
-                            <a href="forgotPassword.html">Forgot password?</a>
+                            <a href="{{ path('app_forgotten_password') }}">Forgot password?</a>
                         </div>
                     </form>
                     <div class="w-100 text-center mt-4 text">
