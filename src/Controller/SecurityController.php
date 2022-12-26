@@ -96,13 +96,6 @@ class SecurityController extends AbstractController
         return $this->render('security/forgottenPassword.html.twig', ['requestPassForm' => $form->createView()]);
     }
 
-    #[Route(path: '/resetPassword', name: 'app_reset_password')]
-    public function resetPassword(): Response
-    {
-        return $this->render('security/resetPassword.html.twig');
-        
-    }
-
     #[Route(path: '/resetPasswordVerif/{resetToken}', name: 'app_reset_password_verif')]
     public function resetPasswordVerif(
         string $resetToken,
