@@ -21,27 +21,31 @@ class Tricks
 
     #[ORM\ManyToOne(inversedBy: 'tricks')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Users $authorId = null;
+    private ? Users $author = null;
 
     #[ORM\ManyToOne(inversedBy: 'tricks')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Categories $categoryId = null;
+    private ? Categories $category = null;
 
     #[ORM\Column(length: 100, unique: true)]
     #[Assert\NotBlank()]
     #[Assert\Length(
-        min: 2,
-        max: 50,
-        minMessage: 'Your Trick name must be at least {{ limit }} characters long',
-        maxMessage: 'Your Trick name cannot be longer than {{ limit }} characters',
+    min: 2,
+    max: 50,
+    minMessage: 'Your Trick name must be at least {{ limit }} characters long',
+    maxMessage: 'Your Trick name cannot be longer than {{ limit }} characters',
     )]
     private ?string $name = null;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank()]
+    private ?string $slug;
 
     #[Assert\NotBlank()]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'trickId', targetEntity: Comments::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comments::class, orphanRemoval: true)]
     private Collection $comments;
 
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Medias::class, orphanRemoval: true)]
@@ -58,26 +62,26 @@ class Tricks
         return $this->id;
     }
 
-    public function getAuthorId(): ?Users
+    public function getAuthor(): ?Users
     {
-        return $this->authorId;
+        return $this->author;
     }
 
-    public function setAuthorId(?Users $authorId): self
+    public function setAuthor(?Users $author): self
     {
-        $this->authorId = $authorId;
+        $this->author = $author;
 
         return $this;
     }
 
-    public function getCategoryId(): ?Categories
+    public function getCategory(): ?Categories
     {
-        return $this->categoryId;
+        return $this->category;
     }
 
-    public function setCategoryId(?Categories $categoryId): self
+    public function setCategory(?Categories $category): self
     {
-        $this->categoryId = $categoryId;
+        $this->category = $category;
 
         return $this;
     }
@@ -90,6 +94,18 @@ class Tricks
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
@@ -118,7 +134,7 @@ class Tricks
     {
         if (!$this->comments->contains($comment)) {
             $this->comments->add($comment);
-            $comment->setTrickId($this);
+            $comment->setTrick($this);
         }
 
         return $this;
@@ -128,8 +144,8 @@ class Tricks
     {
         if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($comment->getTrickId() === $this) {
-                $comment->setTrickId(null);
+            if ($comment->getTrick() === $this) {
+                $comment->setTrick(null);
             }
         }
 

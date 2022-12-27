@@ -64,7 +64,7 @@ class Categories
     {
         if (!$this->tricks->contains($trick)) {
             $this->tricks->add($trick);
-            $trick->setCategoryId($this);
+            $trick->setCategory($this);
         }
 
         return $this;
@@ -74,8 +74,8 @@ class Categories
     {
         if ($this->tricks->removeElement($trick)) {
             // set the owning side to null (unless already changed)
-            if ($trick->getCategoryId() === $this) {
-                $trick->setCategoryId(null);
+            if ($trick->getCategory() === $this) {
+                $trick->setCategory(null);
             }
         }
 

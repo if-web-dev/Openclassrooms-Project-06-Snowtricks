@@ -18,7 +18,7 @@
                     </li>
                     {% else %}
                     <li class="lead mb-0">
-                        <a class="nav-link text-white rounded" href="{{ path('app_login') }}">Sign in</a>
+                        <a class="nav-link text-white rounded" href="{{ path('app_login') }}">Login</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -26,18 +26,18 @@
             <!-- Footer Social Icons-->
             <div class="col-lg-4 mb-5 mb-lg-0">
                 <h4 class="text-uppercase mb-4">Around the Web</h4>
-                <a class="btn btn-outline-light btn-social mx-1" href="www.facebook.fr"><i
+                <a class="btn btn-outline-light btn-social mx-1" href="https://www.facebook.fr"><i
                         class="fab fa-fw fa-facebook-f"></i></a>
-                <a class="btn btn-outline-light btn-social mx-1" href="www.twitter.fr"><i
+                <a class="btn btn-outline-light btn-social mx-1" href="https://www.twitter.fr"><i
                         class="fab fa-fw fa-twitter"></i></a>
-                <a class="btn btn-outline-light btn-social mx-1" href="www.linkedin.fr"><i
+                <a class="btn btn-outline-light btn-social mx-1" href="https://www.linkedin.fr"><i
                         class="fab fa-fw fa-linkedin-in"></i></a>
-                <a class="btn btn-outline-light btn-social mx-1" href="www.dribble.fr"><i
+                <a class="btn btn-outline-light btn-social mx-1" href="https://www.dribble.fr"><i
                         class="fab fa-fw fa-dribbble"></i></a>
             </div>
             <!-- Footer About Text-->
             <div class="col-lg-4">
-                <a href="index.html">
+                <a href="{{ path('home.index') }}">
                     <img src="{{ asset('assets/images/snowtricks-logo.png') }}" height="150" alt="navbar-logo">
                 </a>
                 <p class="lead mb-0">
