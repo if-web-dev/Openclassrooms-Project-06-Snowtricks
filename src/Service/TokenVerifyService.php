@@ -14,12 +14,14 @@ class TokenVerifyService
         return false;
     }
 
-    public function isCombinationValid (int $token, $user): bool
+    public function isCombinationValid (int $token,mixed $user): bool
     {
         if ($this->isValid($token)) {
 
             return ($token == $user->getToken());
 
         }
+
+        return false;
     }
 }

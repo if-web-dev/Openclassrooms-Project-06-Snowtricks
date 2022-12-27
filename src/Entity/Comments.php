@@ -18,11 +18,11 @@ class Comments
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Users $authorId = null;
+    private ?Users $author = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Tricks $trickId = null;
+    private ?Tricks $trick = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank()]
@@ -36,26 +36,26 @@ class Comments
         return $this->id;
     }
 
-    public function getAuthorId(): ?Users
+    public function getAuthor(): ?Users
     {
-        return $this->authorId;
+        return $this->author;
     }
 
-    public function setAuthorId(?Users $authorId): self
+    public function setAuthor(?Users $author): self
     {
-        $this->authorId = $authorId;
+        $this->author = $author;
 
         return $this;
     }
 
-    public function getTrickId(): ?Tricks
+    public function getTrick(): ?Tricks
     {
-        return $this->trickId;
+        return $this->trick;
     }
 
-    public function setTrickId(?Tricks $trickId): self
+    public function setTrick(?Tricks $trick): self
     {
-        $this->trickId = $trickId;
+        $this->trick = $trick;
 
         return $this;
     }

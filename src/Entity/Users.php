@@ -37,10 +37,10 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer')]
     private ?int $token = null;
 
-    #[ORM\OneToMany(mappedBy: 'authorId', targetEntity: Tricks::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Tricks::class, orphanRemoval: true)]
     private Collection $tricks;
 
-    #[ORM\OneToMany(mappedBy: 'authorId', targetEntity: Comments::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Comments::class, orphanRemoval: true)]
     private Collection $comments;
 
     #[Assert\Email(
@@ -158,7 +158,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->tricks->contains($trick)) {
             $this->tricks->add($trick);
-            $trick->setAuthorId($this);
+            $trick->setAuthor($this);
         }
 
         return $this;
@@ -168,8 +168,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->tricks->removeElement($trick)) {
             // set the owning side to null (unless already changed)
-            if ($trick->getAuthorId() === $this) {
-                $trick->setAuthorId(null);
+            if ($trick->getAuthor() === $this) {
+                $trick->setAuthor(null);
             }
         }
 
@@ -188,7 +188,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->comments->contains($comment)) {
             $this->comments->add($comment);
-            $comment->setAuthorId($this);
+            $comment->setAuthor($this);
         }
 
         return $this;
@@ -198,8 +198,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($comment->getAuthorId() === $this) {
-                $comment->setAuthorId(null);
+            if ($comment->getAuthor() === $this) {
+                $comment->setAuthor(null);
             }
         }
 

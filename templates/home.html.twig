@@ -10,18 +10,14 @@
 
 {% block content %}
 
-
-
 <!-- Masthead-->
 <header class="masthead bg-primary text-white text-center position-relative px-2" id="homeMasthead">
 
-
     <div class=" row justify-content-center align-items-center">
         <!-- Message flash -->
-    
         {% if app.user and app.user.isVerified == false %}
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Your account is not acctivated. Resend your activation link</strong> 
+            <strong>Your account is not acctivated. Resend your activation link</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         {% endif %}
@@ -33,7 +29,7 @@
         {% endif %}
 
         {% include "common/flash.html.twig" %}
-    
+
         <!-- Masthead Avatar Image-->
         <img class="masthead-avatar col-5" src="assets/images/snowboarder.png" alt="..." />
         <div class="col-7">
@@ -67,15 +63,15 @@
         </h2>
 
         {% if app.user and app.user.isVerified == true %}
-         <!--Add a Trick button-->
-         <div class="text-center">
-            <a href="addTrick.html" class="btn btn-home-grid load mb-5" style="color: #fafafacc">
+        <!--Add a Trick button-->
+        <div class="text-center">
+            <a href="{{ path('trick_add') }}" class="btn btn-home-grid load mb-5" style="color: #fafafacc">
                 <i class="fa fa-plus" style='color: #fafafacc'></i>
                 Add a Trick
             </a>
         </div>
         {% endif %}
-       
+
         <!-- Trick Grid Items-->
         <div class="container">
             <div class="row justify-content-center px-3">
@@ -85,7 +81,7 @@
                         <div class="position-relative">
                             <div
                                 class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <a href="trick.html"
+                                <a href="{{ path('trick_details') }}"
                                     class="portfolio-item-caption-content text-center text-secondary text-decoration-none">
                                     See More...
                                 </a>
@@ -99,9 +95,10 @@
                             </div>
                             {% if app.user and app.user.isVerified == true %}
                             <div class="d-flex">
-                                <a href="editTrick.html" class="btn btn-home-grid mx-3 my-auto rounded">
+                                <a href="{{ path('trick_edit') }}" class="btn btn-home-grid mx-3 my-auto rounded">
                                     <i class="fa fa-pen" style='color: #fafafacc'></i>
                                 </a>
+                                <!-- Call delete modal-->
                                 <button href="#" class="modal-button btn btn-home-grid my-auto rounded"
                                     data-bs-toggle="modal" data-bs-target="#exampleModal" data-trick="1">
                                     <i class="fa fa-trash" style='color: #fafafacc'></i>
