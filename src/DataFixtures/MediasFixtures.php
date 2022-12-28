@@ -34,20 +34,29 @@ class MediasFixtures extends Fixture implements DependentFixtureInterface
             ],
         ];
 
-        foreach ($Medias as $index => $mediaDatas) {
-            $counter = 1;
-            $trick = $this->getReference(TricksFixtures::TRICK_REFERENCE . $index);
-            $counter++;
-            $type = array_keys($mediaDatas)[0];
-            $medias = array_values($mediaDatas)[0];
+        //for 10 tricks
+        for($i=0; $i<=9; $i++){
 
-            $media = new Medias();
-            $media->setType($type)
-                ->setImage(($type=='image')?$medias : null)
-                ->setVideo(($type=='video')?$medias: null)
-                ->setTrick($trick);
+            $trick = $this->getReference(TricksFixtures::TRICK_REFERENCE . $i);
+           
+            //add 3 media random
 
-            $manager->persist($media);
+            for ($j = 0; $j <= 2; $j++){
+
+                $MediasItem = $Medias[rand(0,5)];
+                $type = array_keys($MediasItem)[0];
+                $MediasData = array_values($MediasItem)[0];
+    
+                $media = new Medias();
+                $media->setType($type)
+                    ->setImage(($type=='image')?$MediasData : null)
+                    ->setVideo(($type=='video')?$MediasData : null)
+                    ->setTrick($trick);
+    
+                $manager->persist($media);
+
+            }
+
         }
 
         $manager->flush();
