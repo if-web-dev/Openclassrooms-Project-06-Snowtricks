@@ -20,10 +20,10 @@ class Medias
     #[ORM\Column(length: 100)]
     private ?string $type = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $video = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $image = null;
 
     public function getId(): ?int
@@ -60,7 +60,7 @@ class Medias
         return $this->video;
     }
 
-    public function setVideo(string $video): self
+    public function setVideo(string|null $video): self
     {
         $this->video = $video;
 
@@ -72,7 +72,7 @@ class Medias
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(string|null $image): self
     {
         $this->image = $image;
 
