@@ -52,3 +52,12 @@ window.addEventListener('DOMContentLoaded', event => {
     });
 
 });
+
+/*--- modals ----*/
+
+$(".modal-button").click(function( ){
+    let trickId = $(this).attr('data-trick');
+    console.log(trickId);
+    $("#trickId").val(trickId);
+  
+  });

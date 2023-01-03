@@ -27,6 +27,28 @@ body {
     width: 100%;
 }
 
+.video-background {
+    flex: 1 1 auto !important;
+    background-size: cover; 
+    background-position: center;
+    overflow-y: hidden;
+}
+
+.card>a {
+    flex: 1 1 auto !important;
+    background-size: cover; 
+    background-position: center;
+    overflow-y: hidden;
+}
+
+.card-img-top {
+    overflow-y: hidden;
+}
+
+.card-body{
+    flex: none !important;
+}
+
 /*---carousel---*/
 
 #container {
@@ -242,10 +264,6 @@ textarea {
     top: 29px;
     max-height: 30px!important;
     border: none;
-}
-
-input[type=file] {
-   padding-left: 50px!important;
 }
 
 @media screen and (max-width:575px) {

@@ -2,15 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoriesRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Trick;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\Collection;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: CategoriesRepository::class)]
-class Categories
+#[ORM\Entity(repositoryClass: CategoryRepository::class)]
+class Category
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -27,12 +28,12 @@ class Categories
     )]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'categoryId', targetEntity: Tricks::class)]
-    private Collection $tricks;
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Trick::class)]
+    private Collection $Trick;
 
     public function __construct()
     {
-        $this->tricks = new ArrayCollection();
+        $this->Trick = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -53,26 +54,26 @@ class Categories
     }
 
     /**
-     * @return Collection<int, Tricks>
+     * @return Collection<int, Trick>
      */
-    public function getTricks(): Collection
+    public function getTrick(): Collection
     {
-        return $this->tricks;
+        return $this->Trick;
     }
 
-    public function addTrick(Tricks $trick): self
+    public function addTrick(Trick $trick): self
     {
-        if (!$this->tricks->contains($trick)) {
-            $this->tricks->add($trick);
+        if (!$this->Trick->contains($trick)) {
+            $this->Trick->add($trick);
             $trick->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removeTrick(Tricks $trick): self
+    public function removeTrick(Trick $trick): self
     {
-        if ($this->tricks->removeElement($trick)) {
+        if ($this->Trick->removeElement($trick)) {
             // set the owning side to null (unless already changed)
             if ($trick->getCategory() === $this) {
                 $trick->setCategory(null);

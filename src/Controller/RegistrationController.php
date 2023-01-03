@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Users;
+use App\Entity\User;
 use App\Service\SendMailService;
 use App\Form\RegistrationFormType;
-use App\Repository\UsersRepository;
+use App\Repository\UserRepository;
 use App\Service\TokenVerifyService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +20,7 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, SendMailService $mail): Response
     {
-        $user = new Users();
+        $user = new User();
       
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -59,12 +59,12 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/verif', name: 'verify_user', methods: ['GET'])]
-    public function verifyUser(Request $request, TokenVerifyService $tokenVerifyed, UsersRepository $usersRepository, EntityManagerInterface $em ): Response
+    public function verifyUser(Request $request, TokenVerifyService $tokenVerifyed, UserRepository $UserRepository, EntityManagerInterface $em ): Response
     {
 
         $id = $request->query->get('id');
         $token = $request->query->get('token');
-        $user = $usersRepository->find($id);
+        $user = $UserRepository->find($id);
 
         if(!$user->getIsVerified())
         {

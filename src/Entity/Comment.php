@@ -2,27 +2,27 @@
 
 namespace App\Entity;
 
-use App\Repository\CommentsRepository;
+use App\Repository\CommentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: CommentsRepository::class)]
-class Comments
+#[ORM\Entity(repositoryClass: CommentRepository::class)]
+class Comment
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\ManyToOne(inversedBy: 'Comment')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Users $author = null;
+    private ?User $author = null;
 
-    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\ManyToOne(inversedBy: 'Comment')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Tricks $trick = null;
+    private ?Trick $trick = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank()]
@@ -36,24 +36,24 @@ class Comments
         return $this->id;
     }
 
-    public function getAuthor(): ?Users
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
 
-    public function setAuthor(?Users $author): self
+    public function setAuthor(?User $author): self
     {
         $this->author = $author;
 
         return $this;
     }
 
-    public function getTrick(): ?Tricks
+    public function getTrick(): ?Trick
     {
         return $this->trick;
     }
 
-    public function setTrick(?Tricks $trick): self
+    public function setTrick(?Trick $trick): self
     {
         $this->trick = $trick;
 

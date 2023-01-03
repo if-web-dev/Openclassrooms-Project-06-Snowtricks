@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Service\SendMailService;
-use App\Repository\UsersRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\ResetPasswordRequestFormType;
 use App\Form\ResetPasswordFormType;
@@ -47,7 +47,7 @@ class SecurityController extends AbstractController
     #[Route(path: '/forgottenPassword', name: 'app_forgotten_password')]
     public function forgottenPassword(
         Request $request, 
-        UsersRepository $usersRepository, 
+        UserRepository $UserRepository, 
         TokenGeneratorInterface $tokenGenerator, 
         EntityManagerInterface $entityManager,
         SendMailService $mail 
@@ -58,7 +58,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() and $form->isValid()){
-            $user = $usersRepository->findOneByUsername($form->get('username')->getData());
+            $user = $UserRepository->findOneByUsername($form->get('username')->getData());
 
             if($user){
 
@@ -100,7 +100,7 @@ class SecurityController extends AbstractController
     public function resetPasswordVerif(
         string $resetToken,
         Request $request,
-        UsersRepository $user,
+        UserRepository $user,
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $passwordHasher
         ): Response
