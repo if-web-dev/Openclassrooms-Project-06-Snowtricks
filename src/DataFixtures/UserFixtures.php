@@ -2,12 +2,12 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Users;
+use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UsersFixtures extends Fixture
+class UserFixtures extends Fixture
 {
     public const USER_REFERENCE = 'user';
     public function __construct(
@@ -17,7 +17,7 @@ class UsersFixtures extends Fixture
     {
         
 
-        $user = new Users();
+        $user = new User();
         $user->setUsername('User')
              ->setPassword($this->passwordEncoder->hashPassword(
                 $user,
@@ -32,6 +32,5 @@ class UsersFixtures extends Fixture
         $manager->persist($user); 
         $manager->flush();
 
-        
     }
 }

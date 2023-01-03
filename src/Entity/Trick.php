@@ -2,30 +2,32 @@
 
 namespace App\Entity;
 
-use App\Repository\TricksRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\User;
+use App\Entity\Media;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TrickRepository;
 
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
-#[ORM\Entity(repositoryClass: TricksRepository::class)]
-class Tricks
+#[ORM\Entity(repositoryClass: TrickRepository::class)]
+class Trick
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'tricks')]
+    #[ORM\ManyToOne(inversedBy: 'Trick', fetch: "EAGER")]
     #[ORM\JoinColumn(nullable: false)]
-    private ? Users $author = null;
+    private ? User $author = null;
 
-    #[ORM\ManyToOne(inversedBy: 'tricks')]
+    #[ORM\ManyToOne(inversedBy: 'Trick', targetEntity: Category::class, fetch: "EAGER")]
     #[ORM\JoinColumn(nullable: false)]
-    private ? Categories $category = null;
+    private ? Category $category = null;
 
     #[ORM\Column(length: 100, unique: true)]
     #[Assert\NotBlank()]
@@ -51,16 +53,16 @@ class Tricks
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comments::class, orphanRemoval: true)]
-    private Collection $comments;
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comment::class, orphanRemoval: true)]
+    private Collection $Comment;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Medias::class, orphanRemoval: true)]
-    private Collection $medias;
+    #[ORM\OneToMany(mappedBy: 'trick', fetch: 'EAGER', targetEntity: Media::class, orphanRemoval: true)]
+    private Collection $Media;
 
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
-        $this->medias = new ArrayCollection();
+        $this->Comment = new ArrayCollection();
+        $this->Media = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
     }
 
@@ -76,12 +78,12 @@ class Tricks
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
     }
 
-    public function setUpdateAt(\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
         
@@ -93,24 +95,24 @@ class Tricks
         return $this->id;
     }
 
-    public function getAuthor(): ?Users
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
 
-    public function setAuthor(?Users $author): self
+    public function setAuthor(?User $author): self
     {
         $this->author = $author;
 
         return $this;
     }
 
-    public function getCategory(): ?Categories
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
 
-    public function setCategory(?Categories $category): self
+    public function setCategory(?Category $category): self
     {
         $this->category = $category;
 
@@ -154,26 +156,26 @@ class Tricks
     }
 
     /**
-     * @return Collection<int, Comments>
+     * @return Collection<int, Comment>
      */
-    public function getComments(): Collection
+    public function getComment(): Collection
     {
-        return $this->comments;
+        return $this->Comment;
     }
 
-    public function addComment(Comments $comment): self
+    public function addComment(Comment $comment): self
     {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
+        if (!$this->Comment->contains($comment)) {
+            $this->Comment->add($comment);
             $comment->setTrick($this);
         }
 
         return $this;
     }
 
-    public function removeComment(Comments $comment): self
+    public function removeComment(Comment $comment): self
     {
-        if ($this->comments->removeElement($comment)) {
+        if ($this->Comment->removeElement($comment)) {
             // set the owning side to null (unless already changed)
             if ($comment->getTrick() === $this) {
                 $comment->setTrick(null);
@@ -184,26 +186,26 @@ class Tricks
     }
 
     /**
-     * @return Collection<int, Medias>
+     * @return Collection<int, Media>
      */
-    public function getMedias(): Collection
+    public function getMedia(): Collection
     {
-        return $this->medias;
+        return $this->Media;
     }
 
-    public function addMedia(Medias $media): self
+    public function addMedia(Media $media): self
     {
-        if (!$this->medias->contains($media)) {
-            $this->medias->add($media);
+        if (!$this->Media->contains($media)) {
+            $this->Media->add($media);
             $media->setTrick($this);
         }
 
         return $this;
     }
 
-    public function removeMedia(Medias $media): self
+    public function removeMedia(Media $media): self
     {
-        if ($this->medias->removeElement($media)) {
+        if ($this->Media->removeElement($media)) {
             // set the owning side to null (unless already changed)
             if ($media->getTrick() === $this) {
                 $media->setTrick(null);

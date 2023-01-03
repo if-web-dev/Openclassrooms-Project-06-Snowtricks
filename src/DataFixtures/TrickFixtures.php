@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Tricks;
+use App\Entity\Trick;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -10,26 +10,21 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 use function Symfony\Component\String\u;
 
-class TricksFixtures extends Fixture implements DependentFixtureInterface
+class TrickFixtures extends Fixture implements DependentFixtureInterface
 {
     public const TRICK_REFERENCE = 'trick-';
-    public function __construct(
-        private readonly SluggerInterface $slugger
-    ) {
-    }
+    public function __construct( private readonly SluggerInterface $slugger) 
+    {}
 
     public function load(ObjectManager $manager): void
     {
        
-        $user = $this->getReference(UsersFixtures::USER_REFERENCE);
+        $user = $this->getReference(UserFixtures::USER_REFERENCE);
 
         $tricks = [
             [
                 'name' => '360',
-                'description' => 'The 3.6 front or frontside 3 is an interesting trick because you can easily put a lot of style on it. 
-                It\'s a 360 degree rotation on the frontside (left for regulars and right for goofys). Like the 3.6 back, 
-                the speed of rotation is quite easy to manage, but if the impulse seems more obvious when throwing the shoulders in front, 
-                the landing is much less so because you are from behind the last quarter of the jump. This is called blind side reception…'
+                'description' => 'The 3.6 front or frontside 3 is an interesting trick because you can easily put a lot of style on it. It\'s a 360 degree rotation on the frontside (left for regulars and right for goofys). Like the 3.6 back, the speed of rotation is quite easy to manage, but if the impulse seems more obvious when throwing the shoulders in front, the landing is much less so because you are from behind the last quarter of the jump. This is called blind side reception…'
             ],
             [
                 'name' => '720',
@@ -37,10 +32,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
             ],
             [
                 'name' => 'Front Flip',
-                'description' => 'The frontflip is one of the easiest flips on the snowboard. Before trying it out on the snow, practice the flip on a trampoline.
-                Accelerate on a flat board. To get into a good spin, push onto the tail before the jump, and then quickly shift forward and push off with your front leg. Make sure your shoulders are parallel to the board.
-                Once in the air, draw up your knees and find your landing spot. Land your board flat.
-                ',
+                'description' => 'The frontflip is one of the easiest flips on the snowboard. Before trying it out on the snow, practice the flip on a trampoline. Accelerate on a flat board. To get into a good spin, push onto the tail before the jump, and then quickly shift forward and push off with your front leg. Make sure your shoulders are parallel to the board. Once in the air, draw up your knees and find your landing spot. Land your board flat.',
             ],
             [
                 'name' => 'Back Flip',
@@ -52,13 +44,11 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
             ],
             [
                 'name' => 'Tail Slide',
-                'description' => 'Pressing your snowboard (sometimes called "buttering") is the act of leaning your weight over either the nose (nosepress) 
-                or tail (tailpress) of the board in such a way that the opposite end of the board is off the snow (or feature).',
+                'description' => 'Pressing your snowboard (sometimes called "buttering") is the act of leaning your weight over either the nose (nosepress) or tail (tailpress) of the board in such a way that the opposite end of the board is off the snow (or feature).',
             ],
             [
                 'name' => 'Mute',
-                'description' => 'A Mute grab is where the front hand grabs the toe edge between the feet. The board is kept flat. 
-                The Mute grab can initially feel awkward, but persevere. Grab the toe edge between the bindings with your front hand.',
+                'description' => 'A Mute grab is where the front hand grabs the toe edge between the feet. The board is kept flat. The Mute grab can initially feel awkward, but persevere. Grab the toe edge between the bindings with your front hand.',
             ],
             [
                 'name' => 'Stalefish',
@@ -66,22 +56,19 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
             ],
             [
                 'name' => 'Backside Air',
-                'description' => 'Like frontside\'s, the backside air is a move you learn from day one, 
-                and spend the rest of your life refining and pushing. The Method air is basically a backside air with extra tweak – old school, but a timeless expression of style. Christian Hosoi perfected them in the eighties on a skateboard, 
-                Jamie Lynn did the same on snow in the nineties...and as soon as you\'re getting some',
+                'description' => 'Like frontside\'s, the backside air is a move you learn from day one, and spend the rest of your life refining and pushing. The Method air is basically a backside air with extra tweak – old school, but a timeless expression of style. Christian Hosoi perfected them in the eighties on a skateboard, Jamie Lynn did the same on snow in the nineties...and as soon as you\'re getting some',
             ],
             [
                 'name' => 'Method Air',
-                'description' => 'method air (plural method airs) (snowboarding, skateboarding) A trick where the boarder grabs the heel edge of the board with their front hand, 
-                between their feet, and then pulls the board towards their back, while arching their back and bending knees.',
+                'description' => 'method air (plural method airs) (snowboarding, skateboarding) A trick where the boarder grabs the heel edge of the board with their front hand, between their feet, and then pulls the board towards their back, while arching their back and bending knees.',
             ],
         ];
 
         foreach ($tricks as $index => $trickData) {
-            
-            $category = $this->getReference(CategoriesFixtures::CATEGORY_REFERENCE . rand(0, 4));
+            $randNbr = mt_rand(0, 4);
+            $category = $this->getReference(CategoryFixtures::CATEGORY_REFERENCE . $randNbr);
 
-            $trick = new Tricks();
+            $trick = new Trick();
             $trick->setAuthor($user)
                 ->setName($trickData['name'])
                 ->setSlug(u($this->slugger->slug($trick->getName()))->lower())
@@ -98,8 +85,8 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-            UsersFixtures::class,
-            CategoriesFixtures::class,
+            UserFixtures::class,
+            CategoryFixtures::class,
         ];
     }
 }

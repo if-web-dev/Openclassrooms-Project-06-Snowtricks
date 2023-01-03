@@ -75,34 +75,40 @@
         <!-- Trick Grid Items-->
         <div class="container">
             <div class="row justify-content-center px-3">
-                {% for i in 0..14 %}
+                {% for trick in tricks %}
                 <div class=" col-xxl-2_4 col-xl-3 col-lg-4 col-md-6 mb-5">
-                    <div class="card portfolio-item mx-auto">
+                    <div class="card d-flex flex-column h-100 portfolio-item mx-auto">
                         <div class="position-relative">
                             <div
                                 class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <a href="{{ path('trick_details') }}"
+                                <a href="{{ path('trick_details', {'slug': trick.slug }) }}"
                                     class="portfolio-item-caption-content text-center text-secondary text-decoration-none">
                                     See More...
                                 </a>
                             </div>
-                            <img src='https://via.placeholder.com/300x200' class="card-img-top" alt="...">
+                            {% for media in trick.media %}
+                            {% if media.isFeaturedImage == true %}
+                            <img src="{{ media.content }}" class="card-img-top" alt="...">
+                            {% endif %}
+                            {% endfor %}
                         </div>
                         <div class="card-body d-flex justify-content-between">
-                            <div>
-                                <h5 class="card-title">Name Trick</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <div class="d-flex flex-column justify-content-center">
+                                <h5 class="card-title">{{ trick.name }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ trick.category.name }}</h6>
                             </div>
                             {% if app.user and app.user.isVerified == true %}
                             <div class="d-flex">
-                                <a href="{{ path('trick_edit') }}" class="btn btn-home-grid mx-3 my-auto rounded">
+                                <a href="{{ path('trick_edit', {'slug': trick.slug }) }}"
+                                    class="btn btn-home-grid mx-3 my-auto rounded">
                                     <i class="fa fa-pen" style='color: #fafafacc'></i>
                                 </a>
                                 <!-- Call delete modal-->
                                 <button href="#" class="modal-button btn btn-home-grid my-auto rounded"
-                                    data-bs-toggle="modal" data-bs-target="#exampleModal" data-trick="1">
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal" data-trick="{{ trick.id }}">
                                     <i class="fa fa-trash" style='color: #fafafacc'></i>
                                 </button>
+                                <!---->
                             </div>
                             {% endif %}
                         </div>
@@ -119,5 +125,7 @@
         </button>
     </div>
 </section>
+
+{% include "modals/trick.modals.html.twig" %}
 
 {% endblock %}
