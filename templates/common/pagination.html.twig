@@ -1,0 +1,19 @@
+{% if tricks.pages > 1 %}
+<nav aria-label="Page navigation d-flex justify-content-center example">
+    <ul class="pagination d-flex justify-content-center">
+        {% if currentPage <= 1 %}
+        <li class="page-item disabled"><a class="page-link text-secondary" href="#">Previous</a></li>
+        {% else %}
+        <li class="page-item"><a class="page-link text-secondary" href="{{ path(path, {page: currentPage - 1}) }}">Previous</a></li>   
+        {% endif %}
+        {% for page in 1..tricks.pages %}
+        <li class="page-item"><a class="page-link text-secondary" href="{{ path(path, {page: page}) }}">{{ page }}</a></li>  
+        {% endfor %}
+        {% if currentPage >= tricks.pages %}
+        <li class="page-item disabled"><a class="page-link text-secondary" role="button" href="#">Next</a></li>
+        {% else %}
+        <li class="page-item"><a class="page-link text-secondary" href="{{ path(path, {page: currentPage + 1}) }}">Next</a></li>   
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}

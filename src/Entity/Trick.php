@@ -54,10 +54,10 @@ class Trick
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comment::class, orphanRemoval: true)]
-    private Collection $Comment;
+    private $Comment; //Collection ?
 
     #[ORM\OneToMany(mappedBy: 'trick', fetch: 'EAGER', targetEntity: Media::class, orphanRemoval: true)]
-    private Collection $Media;
+    private $Media; //Collection ?
 
     public function __construct()
     {
