@@ -44,7 +44,10 @@
             <div class="col-lg-3 col-dm-4 col-sm-6 col p-2" style="max-width: 25rem; max-height: 335px;">
                 <div class="card h-100 d-flex flex-column">
                     {% if media.type == "video" %}
-                    <a href="{{ media.content }}" class="rounded-top d-block" style="background-image: url('{{ media.thumbnail }}')"  target="_blank"></a>
+                    {# style="background-image: url('{{ media.thumbnail }}')" #}
+                    <a href="{{ media.content }}" class="rounded-top d-block"   target="_blank">
+                        <img src="{{ media.thumbnail }}" width="100%">
+                    </a>
                     
                     <div class="card-body">
                         <div class="d-flex justify-content-center">
