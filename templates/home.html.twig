@@ -5,7 +5,11 @@
 {% endblock %}
 
 {% block javascripts %}
-<script src="{{ asset('assets/js/home.js') }}" defer></script>
+<script src="{{ asset('assets/js/home.js') }}"></script>
+<script src="{{ asset('assets/js/loadmore.js') }}" ></script>
+<script>
+    new ShowMoreShowLess(".element","#loadMore","Load More","Show Less", 5, 5);
+</script>
 {% endblock %}
 
 {% block content %}
@@ -75,8 +79,9 @@
         <!-- Trick Grid Items-->
         <div class="container">
             <div class="row justify-content-center px-3">
-                {% for trick in tricks.data %}
-                <div class=" col-xxl-2_4 col-xl-3 col-lg-4 col-md-6 mb-5">
+                {#{% for trick in tricks.data %}#}
+                {% for trick in tricks %}
+                <div class=" col-xxl-2_4 col-xl-3 col-lg-4 col-md-6 mb-5 element">
                     <div class="card d-flex flex-column h-100 portfolio-item mx-auto">
                         <div class="position-relative">
                             <div
@@ -118,8 +123,15 @@
             </div>
         </div>
     </div>
+    <!-- load more -->
+    <div class="text-center">
+        <button type="button" class="btn btn-home-grid load mb-5" id="loadMore" data-type="+" style="color: #fafafacc">
+            <i class="fa fa-plus" style='color: #fafafacc'></i>
+            Load More
+        </button>
+    </div>
 
-{% set path = "home.index" %}
+{#{% set path = "home.index" %}
 {% set pages = tricks.pages %}
 {% set currentPage = tricks.page %}
 {% include "common/pagination.html.twig" %}
@@ -128,7 +140,7 @@
             <i class="fa fa-spinner" style='color: #fafafacc'></i>
             Load More tricks...
         </button>
-    </div>-->
+    </div>-->#}
 </section>
 
 {% include "modals/trick.modals.html.twig" %}
