@@ -9,6 +9,7 @@ class ShowMoreShowLess {
 
 		$(elementClass).hide();
 		$(elementClass+':lt('+index+')').show();
+		$(button).html(btnTextMore);
 
 		if (index == elementLength){
 			$(button).hide();
