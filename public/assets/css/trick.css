@@ -239,6 +239,11 @@ textarea {
     max-width: 800px;
 }
 
+#comment {
+    max-width: 800px!important;
+    margin: 0 auto;
+}
+
 .comment {
     width: 100%;
 }

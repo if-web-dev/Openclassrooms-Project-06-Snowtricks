@@ -5,7 +5,11 @@
 {% endblock %}
 
 {% block javascripts %}
-<script src="{{ asset('assets/js/trick.js') }}" defer></script>
+<script src="{{ asset('assets/js/trick.js') }}"></script>
+<script src="{{ asset('assets/js/loadmore.js') }}" ></script>
+<script>
+    new ShowMoreShowLess(".element","#loadMore","Load More Comments","Show Less Comments", 3, 3);
+</script>
 {% endblock %}
 
 {% block content %}
@@ -13,9 +17,17 @@
 <header class="masthead bg-primary text-white text-center d-flex flex-column px-2">
     <div class="container d-flex align-items-center flex-column">
         {% if app.user and app.user.isVerified == true %}
+        <!--Message flash-->
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success alert-dismissible fade show">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
         <!--Manager button-->
         <div class="align-self-end">
-            <a href="{{ path('trick_edit', {"slug": trick.slug }) }}" class="btn btn-home-grid mx-3 my-auto rounded shadow-lg">
+            <a href="{{ path('trick_edit', {"slug": trick.slug }) }}"
+                class="btn btn-home-grid mx-3 my-auto rounded shadow-lg">
                 <i class="fa fa-pen fa-xl p-1" style='color: #fafafacc'></i>
             </a>
             <button class="btn btn-home-grid my-auto rounded shadow-lg" data-bs-toggle="modal"
@@ -37,36 +49,35 @@
     <h3 class="page-section-heading text-center text-uppercase text-primary mb-5" id="trick-list">
         Media
     </h3>
-    <!--Trick Carrousel-->
-   
+    <!--Trick Media-->
     <div class="d-flex flex-row flex-wrap justify-content-center p-5">
         {% for media in trick.media %}
-            <div class="col-lg-3 col-dm-4 col-sm-6 col p-2" style="max-width: 25rem; max-height: 335px;">
-                <div class="card h-100 d-flex flex-column">
-                    {% if media.type == "video" %}
-                    {# style="background-image: url('{{ media.thumbnail }}')" #}
-                    <a href="{{ media.content }}" class="rounded-top d-block"   target="_blank">
-                        <img src="{{ media.thumbnail }}" width="100%">
-                    </a>
-                    
-                    <div class="card-body">
-                        <div class="d-flex justify-content-center">
-                            <div class="d-flex">
-                                <i class="fa-brands fa-youtube fa-2xl my-auto" style="color: #ff0000;"></i>
-                                <h5 class="card-title my-auto mx-3">Video</h5>
-                            </div>
-                    {% else %}
-                    <a href="{{ media.content }}"  class="rounded-top"  target="_blank">
-                        <img src="{{ media.content }}" class="card-img-top" alt="Vidéo Youtube" class="video"/>
-                    </a>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-center">
-                            <div class="d-flex">
-                                <i class="fa fa-image fa-2xl my-auto" style='color: #fafafacc'></i>
-                                <h5 class="card-title my-auto mx-3">Image</h5>
-                            </div>
-                    {% endif %}
-                <!--   {% if app.user and app.user.isVerified == true %}
+        <div class="col-lg-3 col-dm-4 col-sm-6 col p-2" style="max-width: 25rem; max-height: 335px;">
+            <div class="card h-100 d-flex flex-column">
+                {% if media.type == "video" %}
+                {# style="background-image: url('{{ media.thumbnail }}')" #}
+                <a href="{{ media.content }}" class="rounded-top d-block" target="_blank">
+                    <img src="{{ media.thumbnail }}" width="100%">
+                </a>
+
+                <div class="card-body">
+                    <div class="d-flex justify-content-center">
+                        <div class="d-flex">
+                            <i class="fa-brands fa-youtube fa-2xl my-auto" style="color: #ff0000;"></i>
+                            <h5 class="card-title my-auto mx-3">Video</h5>
+                        </div>
+                        {% else %}
+                        <a href="{{ media.content }}" class="rounded-top" target="_blank">
+                            <img src="{{ media.content }}" class="card-img-top" alt="Vidéo Youtube" class="video" />
+                        </a>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center">
+                                <div class="d-flex">
+                                    <i class="fa fa-image fa-2xl my-auto" style='color: #fafafacc'></i>
+                                    <h5 class="card-title my-auto mx-3">Image</h5>
+                                </div>
+                                {% endif %}
+                                <!--   {% if app.user and app.user.isVerified == true %}
                             <div class="d-flex justify-content-center">
                                 <button href="#" class="btn btn-home-grid my-auto rounded"
                                     data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -74,151 +85,70 @@
                                 </button>
                             </div>
                     {% endif %}-->
+                            </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    </div>
-    
-    <!--Trick description-->
-    <div class="container">
-        <h3 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-5" id="trick-list">
-            Description
-        </h3>
-        <div class="container" style='color: #fafafacc'>
-            <p>{{ trick.description}}</p>
-        </div>
-        <!-- Trick Informations-->
-        <div class="d-flex flex-wrap justify-content-center">
-            <span class="badge bg-info p-3 m-3">{{ trick.category.name }}</span>
-            <span class="badge bg-light p-3 m-3 text-dark">Le {{ trick.createdAt|date("d/m/Y") }}</span>
-            {% if trick.updatedAt %}
-            <span class="badge bg-success p-3 m-3"> {{ trick.updatedAt|date("d/m/Y") }}</span>
-            {% endif %}
-            
-        </div>
-        <hr>
-        {% if app.user and app.user.isVerified == true %}
-        <!-- Leave a comment -->
-        <div class="container">
-            <form action="#" class="login-form mx-auto">
-                <div class="form-group">
-                    <div class=" d-flex flex-wrap align-items-center justify-content-center py-4">
-                        <textarea name="comment" id="comment" class="form-control text-white rounded" rows='5' cols="50"
-                            placeholder="Post a comment" required></textarea>
-                        <input type="submit" name="submit" id="submit"
-                            class="btn btn-home-grid mx-3 mt-4  rounded shadow-lg" value="Post a comment">
-                        </input>
-                    </div>
-                </div>
-            </form>
-            <hr>
-        </div>
-        {% endif %}
-        <!-- comments-->
-        <div>
-            <div class="comment d-flex justify-content-center my-4">
-                <div class="comment-body d-flex my-auto" style='color: #fafafacc'>
-                    <div class="d-flex">
-                        <i class="mx-3 fa fa-user-circle-o fa-3x"></i>
-                        <h5 class="mx-3">
-                            Jhon Doe
-                        </h5>
-                    </div>
-                    <div>
-                        <p class="text-muted fw-bold mx-3">Le 13/09/2022</p>
-                        <p class="mx-3">
-                            Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate
-                            at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-                            congue felis in faucibus.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="comment d-flex justify-content-center my-4">
-                <div class="comment-body d-flex my-auto" style='color: #fafafacc'>
-                    <div class="d-flex">
-                        <i class="mx-3 fa fa-user-circle-o fa-3x"></i>
-                        <h5 class="mx-3">
-                            Jhon Doe
-                        </h5>
-                    </div>
-                    <div>
-                        <p class="text-muted fw-bold mx-3">Le 13/09/2022</p>
-                        <p class="mx-3">
-                            Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate
-                            at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-                            congue felis in faucibus.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="comment d-flex justify-content-center my-4">
-                <div class="comment-body d-flex my-auto" style='color: #fafafacc'>
-                    <div class="d-flex">
-                        <i class="mx-3 fa fa-user-circle-o fa-3x"></i>
-                        <h5 class="mx-3">
-                            Jhon Doe
-                        </h5>
-                    </div>
-                    <div>
-                        <p class="text-muted fw-bold mx-3">Le 13/09/2022</p>
-                        <p class="mx-3">
-                            Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate
-                            at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-                            congue felis in faucibus.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="comment d-flex justify-content-center my-4">
-                <div class="comment-body d-flex my-auto" style='color: #fafafacc'>
-                    <div class="d-flex">
-                        <i class="mx-3 fa fa-user-circle-o fa-3x"></i>
-                        <h5 class="mx-3">
-                            Jhon Doe
-                        </h5>
-                    </div>
-                    <div>
-                        <p class="text-muted fw-bold mx-3">Le 13/09/2022</p>
-                        <p class="mx-3">
-                            Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate
-                            at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-                            congue felis in faucibus.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="comment d-flex justify-content-center my-4">
-                <div class="comment-body d-flex my-auto" style='color: #fafafacc'>
-                    <div class="d-flex">
-                        <i class="mx-3 fa fa-user-circle-o fa-3x"></i>
-                        <h5 class="mx-3">
-                            Jhon Doe
-                        </h5>
-                    </div>
-                    <div>
-                        <p class="text-muted fw-bold mx-3">Le 13/09/2022</p>
-                        <p class="mx-3">
-                            Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate
-                            at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-                            congue felis in faucibus.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Load more -->
-        <div class="d-flex justify-content-center align-items-center">
-            <button href="#" class="btn btn-home-grid load mx-3 my-auto" style="color: #fafafacc">
-                <i class="fa fa-spinner" style='color: #fafafacc'></i>
-                Load More Comments...
-            </button>
-        </div>
 
-    </div>
+            <!--Trick description-->
+            <div class="container">
+                <h3 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-5" id="trick-list">
+                    Description
+                </h3>
+                <div class="container" style='color: #fafafacc'>
+                    <p>{{ trick.description}}</p>
+                </div>
+                <!-- Trick Informations-->
+                <div class="d-flex flex-wrap justify-content-center">
+                    <span class="badge bg-info p-3 m-3">{{ trick.category.name }}</span>
+                    <span class="badge bg-light p-3 m-3 text-dark">Le {{ trick.createdAt|date("d/m/Y") }}</span>
+                    {% if trick.updatedAt %}
+                    <span class="badge bg-success p-3 m-3"> {{ trick.updatedAt|date("d/m/Y") }}</span>
+                    {% endif %}
 
+                </div>
+                <hr>
+                {% if app.user and app.user.isVerified == true %}
+                <!-- Leave a comment -->
+                <div class="container py-4">
+                    <div class="d-flex justify-content-center">
+                        {{ form(commentForm) }}
+                    </div>
+                    <hr class="mt-4">
+                </div>
+                {% endif %}
+                <!-- comments-->
+                <div id="comment" class="mb-5">
+                    {% for comment in comments %}
+                    <div class="comment my-4 element">
+                        <div class="comment-body d-flex w-100" style='color: #fafafacc'>
+                            <div class="col-4 d-flex justify-content-between">
+                                <i class="fa fa-user-circle-o fa-4x my-auto"></i>
+                                <h5 class="m-auto">
+                                    {{ comment.author.username}}
+                                </h5>
+                            </div>
+                            <div class="col-8 bg-secondary rounded p-1">
+                                <p class="text-muted fw-bold mx-3">The {{ comment.createdAt|date("d/m/Y") }}</p>
+                                <p class="mx-3">
+                                    {{ comment.content }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- Load more -->
+                <div class="d-flex justify-content-center align-items-center">
+                    <button class="btn btn-home-grid load mx-3 my-auto" id="loadMore" data-type="+" style="color: #fafafacc">
+                      <!--<i class="fa fa-spinner" style='color: #fafafacc'></i>-->
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 {% include "modals/trick.modals.html.twig" %}

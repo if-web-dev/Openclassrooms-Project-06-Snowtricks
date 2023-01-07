@@ -53,7 +53,7 @@ class Trick
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comment::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'trick', fetch: 'EAGER', targetEntity: Comment::class, orphanRemoval: true)]
     private $Comment; //Collection ?
 
     #[ORM\OneToMany(mappedBy: 'trick', fetch: 'EAGER', targetEntity: Media::class, orphanRemoval: true)]
