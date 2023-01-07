@@ -1,4 +1,4 @@
-# Openclassrooms-Project-05-Blog-POO-MVC
+# Openclassrooms-Project-06-Snowtricks
 
 We present project 6 of the PHP/Symfony application developer course. Develop from A to Z the SnowTricks community website. A website
 which we can post Snowboard Tricks image, videos, tricks descriptions and comments.
