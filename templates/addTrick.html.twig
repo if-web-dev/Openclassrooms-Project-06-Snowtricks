@@ -34,10 +34,10 @@
         <h2 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-4" id="trick-list">
             Add Videos
         </h2>
-        <p style='color: #fafafacc'>
+        <p class="text-warning m-0">
             Your video url should look like this:
         </p>
-        <p style='color: #fafafacc; font-style: italic;'>
+        <p class="text-warning m-0">
             https://www.youtube.com/watch?v=fNPQTlEKkJk
         </p>
         <ul class="videos p-0"  data-index="{{ trickForm.videos|length > 0 ? trickForm.videos|last.vars.name + 1 : 0 }}"
@@ -54,7 +54,7 @@
         <h2 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-4" id="trick-list">
             Add Images
         </h2>
-        <p class="mb-4" style='color: #fafafacc'>
+        <p class="text-warning">
             Select images in jpg/png and 16/9 format:
         </p>
         <ul class="images p-0"  data-index="{{ trickForm.images|length > 0 ? trickForm.images|last.vars.name + 1 : 0 }}"

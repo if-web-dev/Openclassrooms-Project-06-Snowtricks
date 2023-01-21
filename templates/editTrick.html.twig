@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block javascripts %}
-<script src="{{ asset('assets/js/trick.js') }}" defer></script>
+<script src="{{ asset('assets/js/trick.js') }}"></script>
 {% endblock %}
 
 {% block content %}
@@ -17,7 +17,7 @@
         <div class="align-self-end">
             <button class="btn btn-home-grid my-auto rounded shadow-lg modal-button" data-bs-toggle="modal"
                 data-bs-target="#exampleModal" data-trick="{{ trick.id }}">
-                <i class="fa fa-trash fa-xl p-1" style='color: #fafafacc'></i>
+                <i class="fa fa-trash fa-xl p-1 text-danger"></i>
             </button>
         </div>
         {% endif %}
@@ -29,28 +29,28 @@
 </header>
 <!-- Trick Section-->
 
-<section class="page-section portfolio d-flex flex-column align-items-center p-5" id="add-trick">
+<section class="page-section portfolio d-flex flex-column align-items-center" id="add-trick">
 
         {{ form_start(trickForm, {'attr': {'class': 'w-100 p-5' }}) }}
             <h2 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-4" id="trick-list">
                 Edit Description
             </h2>
-            <div class="form-group">
+            <div class="form-group mb-4">
                 {{ form_row(trickForm.name, { 'attr':{'class' : 'form-control rounded'}}) }}
             </div>
-            <div class="form-group">
+            <div class="form-group mb-4">
                 {{ form_row(trickForm.category) }}
             </div>
-            <div class="form-group mt-5">
+            <div class="form-group">
                 {{ form_row(trickForm.description, { 'attr':{'class' : 'form-control rounded'}}) }}
             </div>
             <h2 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-4" id="trick-list">
                 Edit Videos
             </h2>
-            <p style='color: #fafafacc'>
+            <p class="text-warning m-0">
                 Your video url should look like this:
             </p>
-            <p style='color: #fafafacc; font-style: italic;'>
+            <p class="text-warning font-italic m-0">
                 https://www.youtube.com/watch?v=fNPQTlEKkJk
             </p>
             <ul class="videos p-0"  data-index="{{ trickForm.videos|length > 0 ? trickForm.videos|last.vars.name + 1 : 0 }}"
@@ -70,13 +70,16 @@
             <h2 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-4" id="trick-list">
                 Edit Images
             </h2>
-           <p style='color: #fafafacc'>
+           <p class="text-warning m-0">
                 Select images in jpg/png and 16/9 format:
             </p>
             <ul class="images p-0"  data-index="{{ trickForm.images|length > 0 ? trickForm.images|last.vars.name + 1 : 0 }}"
             data-prototype="{{ form_row(trickForm.images.vars.prototype)|e('html_attr') }}">
+                    
                     {% set myVal2 = 1 %}
-                    {% for imageField in trickForm.images %}
+                    {% for imageField in trickForm.images  %}
+                    <li>
+                        {% if imageField.vars["data"].path is not null %}
                         <div class="col-6 p-2" style="max-width: 25rem; max-height: 335px;">
                             <div class="card h-100 d-flex flex-column">
                                 <a href="{{ asset('assets/uploads/images/'~ imageField.vars["data"].path ) }}" class="rounded-top d-block"
@@ -86,24 +89,17 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-center">
                                         <div class="d-flex">
-                                            <i class="fa fa-image fa-2xl my-auto" style='color: #fafafacc'></i>
+                                            <i class="fa fa-image fa-2xl my-auto" class="text-grey"></i>
                                             <h5 class="card-title my-auto mx-3">Image n°{{myVal2}}</h5>
                                         </div>
-                                        {% if app.user and app.user.isVerified == true %}
-                                        <div class="d-flex justify-content-center">
-                                            <button type="button" class="btn btn-home-grid my-auto rounded">
-                                                <i class="fa fa-trash" style='color: #fafafacc'></i>
-                                            </button>
-                                        </div>
-                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <li>
-                            {{ form_label(trickForm.images, 'Edit image n°'~ myVal2 , {'label_attr': {'class': 'text-light'}}) }}
-                            {{ form_row(imageField) }}
-                        </li>
+                        {% endif %}
+                        {{ form_label(trickForm.images, 'Edit image n°'~ myVal2 , {'label_attr': {'class': 'text-light'}}) }}
+                        {{ form_row(imageField) }}
+                    </li>
                     {% set myVal2 = myVal2 + 1 %}
                     {% endfor %}
             </ul>

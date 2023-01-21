@@ -28,8 +28,8 @@ class AddTrickFormType extends AbstractType
                 ]
             ])
             ->add('category', EntityType::class, [
-                'class' => Category::class,
                 'label' => false,
+                'class' => Category::class,
                 'placeholder' => 'Select a trick category',
                 'choice_label' => 'name'
             ])

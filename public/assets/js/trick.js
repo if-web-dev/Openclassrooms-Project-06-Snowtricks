@@ -9,7 +9,7 @@ $("#button-addon1").click(function () {
 
 const addVideoFormToCollection = (e) => {
     const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-
+    
     const item = document.createElement('li');
 
     console.log(item.childNodes);
@@ -32,7 +32,7 @@ const addVideoFormToCollection = (e) => {
 
 const addImageFormToCollection = (e) => {
     const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-
+    
     const item = document.createElement('li');
 
     console.log(item.childNodes);
@@ -56,7 +56,7 @@ const addImageFormToCollection = (e) => {
 const addImageFormDeleteLink = (item) => {
     const removeFormButton = document.createElement('button');
 
-    removeFormButton.classList.add("btn","btn-outline-danger", "btn-lg", "mb-4", "mt-4")
+    removeFormButton.classList.add("btn","btn-outline-danger", "btn-lg", "mb-4")
     
     removeFormButton.innerText = 'Delete this image';
 
@@ -72,7 +72,7 @@ const addImageFormDeleteLink = (item) => {
 const addVideoFormDeleteLink = (item) => {
     const removeFormButton = document.createElement('button');
 
-    removeFormButton.classList.add("btn","btn-outline-danger", "btn-lg", "mb-4", "mt-4")
+    removeFormButton.classList.add("btn","btn-outline-danger", "btn-lg", "mb-4")
     
     removeFormButton.innerText = 'Delete this video';
 
@@ -101,15 +101,22 @@ document
 document
     .querySelectorAll('ul.videos li')
     .forEach((item) => {
-        addTagFormDeleteLink(item)
+        addVideoFormDeleteLink(item)
+    })
+
+document
+    .querySelectorAll('ul.images li')
+    .forEach((item) => {
+        addImageFormDeleteLink(item)
     })
 
 
-/*$(".removePicture").click( function() {
+$(".removePicture").click( function() {
+    console.log('mimpo');
     let pictureId = $(this).attr("data-picture-id");
     let link = "{{ path('API_remove_picture') }}"
     $.ajax({
-        url: "https://127.0.0.1:8000/removePicture",
+        url: link,
         method: "POST",
         data: {pictureID: pictureId},
         success: function(res)
@@ -118,4 +125,4 @@ document
             
         }
     });
-})*/
+})

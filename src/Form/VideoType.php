@@ -18,19 +18,20 @@ class VideoType extends AbstractType
                     'label' => false,
                     'attr' => [
                         'placeholder' => 'Add a Youtube video url',
-                        'class' => 'form-control rounded',
-                        //'pattern' => "https://www.youtube.com/watch?v="
+                        'class' => 'form-control rounded mt-3'
                 
-                ],
-                'constraints' => [
-                    new Assert\Regex([
-                        'pattern' => '#^https:\/\/www\.youtube\.com\/watch\?v=\w+$#',
-                        'match' => true,
-                        'message' => 'Please enter a youtube url in the right format'
-                    ])
-                ],
-            ])
-        ;
+                    ],
+                    'row_attr' => [
+                        'class' => 'input-group input-group-lg'
+                    ],
+                    'constraints' => [
+                        new Assert\Regex([
+                            'pattern' => '#^https:\/\/www\.youtube\.com\/watch\?v=\w+$#',
+                            'match' => true,
+                            'message' => 'Please enter a youtube url in the right format'
+                        ])
+                    ],
+                ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

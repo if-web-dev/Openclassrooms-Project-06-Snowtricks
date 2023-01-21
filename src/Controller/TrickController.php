@@ -118,7 +118,6 @@ class TrickController extends AbstractController
 
     #[Route('/edit/{slug}', 'edit', methods: ['GET', 'POST'])]
     public function editTrick(Trick $trick,
-                              CategoryRepository $categories, 
                               EntityManagerInterface $em, 
                               Request $request, 
                               SluggerInterface $slugger, 
@@ -158,7 +157,7 @@ class TrickController extends AbstractController
 
             $em->flush();
 
-            $this->addFlash('success', 'Your Trick has been added successfully !');
+            $this->addFlash('success', 'Your Trick has been modified successfully !');
             return $this->redirectToRoute('home.index');
         }
 
