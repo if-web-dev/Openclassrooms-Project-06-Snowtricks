@@ -130,6 +130,38 @@ class TrickController extends AbstractController
             ->createForm(EditTrickFormType::class, $trick)
             ->handleRequest($request);
 
+        if ($trickForm->isSubmitted() && $trickForm->isValid()) {
+            $trick->setAuthor($this->getUser());
+            $trick->setSlug(($slugger->slug($trick->getName()))->lower());
+
+
+            //add videos
+            foreach ($trickForm->get('videos')->getData() as $video) {
+
+                $video->setThumbnail($youtubeThumbnail->getThumbnail($video->getUrl()));
+                $trick->addVideo($video);
+            }
+            //add images
+            foreach ($trickForm->get('images') as $image) {
+
+                if ($image->get('path')->getData() !== null) {
+                    $newImage = $image->getData();
+                    $filePath = $imageUploader->upload($image->get('path')->getData());
+                    $newImage->setPath($filePath);
+
+                    $image->getData()->setTrick($trick);
+                    $trick->addImage($image->getData());
+                }
+            }
+
+            $em->persist($trick);
+
+            $em->flush();
+
+            $this->addFlash('success', 'Your Trick has been added successfully !');
+            return $this->redirectToRoute('home.index');
+        }
+
         return $this->render('editTrick.html.twig', [
             'trickForm' => $trickForm->createView(),
             'trick' => $trick,
