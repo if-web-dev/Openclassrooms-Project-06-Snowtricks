@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Form\AddTrickFormType;
 use App\Service\ImageUploader;
+use App\Form\EditTrickFormType;
 use App\Service\YoutubeThumbnail;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -116,11 +117,22 @@ class TrickController extends AbstractController
     }
 
     #[Route('/edit/{slug}', 'edit', methods: ['GET', 'POST'])]
-    public function editTrick(Trick $trick, CategoryRepository $categories): Response
+    public function editTrick(Trick $trick,
+                              CategoryRepository $categories, 
+                              EntityManagerInterface $em, 
+                              Request $request, 
+                              SluggerInterface $slugger, 
+                              YoutubeThumbnail $youtubeThumbnail,
+                              ImageUploader $imageUploader): Response
+                              
     {
+        $trickForm = $this
+            ->createForm(EditTrickFormType::class, $trick)
+            ->handleRequest($request);
+
         return $this->render('editTrick.html.twig', [
+            'trickForm' => $trickForm->createView(),
             'trick' => $trick,
-            'categories' => $categories->findAll(),
         ]);
     }
 }
