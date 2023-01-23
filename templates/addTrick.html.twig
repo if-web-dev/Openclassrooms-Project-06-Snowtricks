@@ -17,57 +17,62 @@
     </div>
 </header>
 <!-- Trick Section-->
-<section class="page-section portfolio d-flex flex-column align-items-center p-5" id="add-trick">
-    <form action="..." method="post" enctype="multipart/form-data">
-        <!--Trick description-->
+<section class="page-section portfolio d-flex flex-column align-items-center" id="add-trick">
+    {{ form_start(trickForm, {'attr': {'class': 'w-100 p-5' }}) }}
         <h2 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-4" id="trick-list">
             Add Description
         </h2>
-        <div class="form-group">
-            <div class="input-group input-group-lg mb-4">
-                <input type="text" name="name" class="form-control text-white rounded" placeholder="Trick Name"
-                    required>
-            </div>
+        <div class="form-group mb-4">
+            {{ form_row(trickForm.name, { 'attr':{'class' : 'form-control rounded'}}) }}
         </div>
-        <div class="form-group input-group input-group-lg mb-4">
-            <select class="form-control rounded" name="trickGroup" id="trickGroup">
-                <option value="" selected disabled>--- Select a trick group ---</option>
-                {% for category in categories %}
-                <option value="{{ category.id }}">{{ category.name }}</option>
-                {% endfor %}
-            </select>
+        <div class="form-group mb-4">
+            {{ form_row(trickForm.category, {'attr':{'class' : 'rounded w-100'}}) }}
         </div>
         <div class="form-group">
-            <div class="input-group input-group-lg mb-4">
-                <textarea name="description" id="description" class="form-control text-white rounded" rows='5' cols="50"
-                    placeholder="Post a Trick description" required></textarea>
-            </div>
+            {{ form_row(trickForm.description, { 'attr':{'class' : 'form-control rounded'}}) }}
         </div>
-        <!--Trick Media-->
         <h2 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-4" id="trick-list">
-            Add Media
+            Add Videos
         </h2>
-        <p class="mb-4" style='color: #fafafacc'>Add here a featured image</p>
-        <div class="input-group input-group-lg mb-5">
-            <input class="form-control rounded pl-0" type="file" id="formFile">
+        <p class="text-warning m-0">
+            Your video url should look like this:
+        </p>
+        <p class="text-warning mt-0">
+            https://www.youtube.com/watch?v=fNPQTlEKkJk
+        </p>
+        <ul class="videos p-0"  data-index="{{ trickForm.videos|length > 0 ? trickForm.videos|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ form_row(trickForm.videos.vars.prototype)|e('html_attr') }}">
+                {% for videoField in trickForm.videos %}
+                    <li>
+                        {{ form_row(videoField) }}
+                    </li>
+                {% endfor %}
+        </ul>
+        <button type="button" class="add_item_link_video btn btn-outline-success btn-lg mt-1" data-collection-holder-class="videos">
+            Add a new video
+        </button>
+        <h2 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-4" id="trick-list">
+            Add Images
+        </h2>
+        <p class="text-warning">
+            Select images in jpg/png and 16/9 format:
+        </p>
+        <ul class="images p-0"  data-index="{{ trickForm.images|length > 0 ? trickForm.images|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ form_row(trickForm.images.vars.prototype)|e('html_attr') }}">
+                {% for imageField in trickForm.images %}
+                    <li>
+                        {{ form_row(imageField) }}
+                    </li>
+                {% endfor %}
+        </ul>
+        <button type="button" class="add_item_link_image btn btn-outline-success btn-lg mt-1" data-collection-holder-class="images">
+            Add a new image
+        </button>
+        <div class="d-flex justify-content-center m5">
+            {{ form_row(trickForm.save) }} 
         </div>
-        <p style='color: #fafafacc'>Your video url should look like this:</p>
-        <p style='color: #fafafacc; font-style: italic;'>https://www.youtube.com/watch?v=fNPQTlEKkJk</p>
-        <div class="input-group input-group-lg mb-5 ">
-            <input type="url" class="form-control rounded" name="url" id="url" placeholder="Add a youtube trick url"
-                pattern="https://.*" required>
-        </div>
-        <p class="mb-4" style='color: #fafafacc'>Prefer images in 16/9 format</p>
-        <div class="input-group input-group-lg mb-4">
-            <input class="form-control rounded pl-0" type="file" id="formFileMultiple" multiple>
-        </div>
+    {{ form_end(trickForm) }}
 
-        <div class="d-flex justify-content-center">
-            <input type="submit" name="submit" id="submit"
-                class="btn btn-home-grid mx-3 my-4 my-xl-auto  rounded shadow-lg" value="Save this Trick">
-            </input>
-        </div>
-    </form>
 </section>
 
 {% endblock %}

@@ -3,17 +3,17 @@
 namespace App\Entity;
 
 use App\Entity\User;
-use App\Entity\Media;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TrickRepository;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
+#[UniqueEntity(fields: ['name'], message: 'There is already a trick with this name')]
 class Trick
 {
     #[ORM\Id]
@@ -29,7 +29,7 @@ class Trick
     #[ORM\JoinColumn(nullable: false)]
     private ? Category $category = null;
 
-    #[ORM\Column(length: 100, unique: true)]
+    #[ORM\Column(length: 100)]
     #[Assert\NotBlank()]
     #[Assert\Length(
     min: 2,
@@ -40,7 +40,6 @@ class Trick
     private ?string $name = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\NotBlank()]
     private ?string $slug;
 
     #[Assert\NotBlank()]
@@ -56,19 +55,15 @@ class Trick
     #[ORM\OneToMany(mappedBy: 'trick', fetch: 'EAGER', targetEntity: Comment::class, orphanRemoval: true)]
     private $Comment; //Collection ?
 
-    #[ORM\OneToMany(mappedBy: 'trick', fetch: 'EAGER', targetEntity: Media::class, orphanRemoval: true)]
-    private $Media;
-
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $videos;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class, orphanRemoval: true)]
-    private Collection $images; //Collection ?
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class, cascade: ['persist'], orphanRemoval: true)]
+    private Collection $images;
 
     public function __construct()
     {
         $this->Comment = new ArrayCollection();
-        $this->Media = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->videos = new ArrayCollection();
         $this->images = new ArrayCollection();
@@ -187,36 +182,6 @@ class Trick
             // set the owning side to null (unless already changed)
             if ($comment->getTrick() === $this) {
                 $comment->setTrick(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Media>
-     */
-    public function getMedia(): Collection
-    {
-        return $this->Media;
-    }
-
-    public function addMedia(Media $media): self
-    {
-        if (!$this->Media->contains($media)) {
-            $this->Media->add($media);
-            $media->setTrick($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMedia(Media $media): self
-    {
-        if ($this->Media->removeElement($media)) {
-            // set the owning side to null (unless already changed)
-            if ($media->getTrick() === $this) {
-                $media->setTrick(null);
             }
         }
 

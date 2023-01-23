@@ -2976,7 +2976,7 @@ textarea.form-control-lg {
 .input-group-lg>.form-select,
 .input-group-lg>.input-group-text,
 .input-group-lg>.btn {
-  padding: 0.5rem 1rem;
+  /*padding: 0.5rem 1rem;*/
   font-size: 1.25rem;
   border-radius: 0.75rem;
 }
@@ -5170,6 +5170,11 @@ fieldset:disabled .btn {
 .navbar-dark .navbar-text a:hover,
 .navbar-dark .navbar-text a:focus {
   color: #fff;
+}
+
+.item {
+  max-width: 25rem; 
+  max-height: 335px;
 }
 
 .card {
@@ -7581,6 +7586,10 @@ fieldset:disabled .btn {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.text-grey {
+  color: #fafafacc !important;
 }
 
 .vr {
@@ -12496,7 +12505,6 @@ html {
 }
 
 .footer {
-  padding-top: 5rem;
   background-color: #2c3e50;
   color: #fff;
 }

@@ -20,7 +20,8 @@ class CommentType extends AbstractType
                 'attr' => [
                     'rows' => '5',
                     'class' => 'form-control text-white rounded',
-                    'cols' => '60'
+                    'cols' => '60',
+                    'placeholder' => 'Post a comment'
                 ]
             ])
             ->add('author', HiddenType::class )
@@ -28,12 +29,9 @@ class CommentType extends AbstractType
             ->add('save', SubmitType::class, [
                 'label' => 'Send a comment',
                 'attr' => [
-                    'class' => 'btn btn-home-grid d-block mx-auto mt-4 rounded shadow-lg',
+                    'class' => 'btn btn-lg btn-home-grid d-block mx-auto mt-4 rounded shadow-lg',
                 ],
             ])
-            /*
-            ->add('createdAt')*/
-            
         ;
     }
 

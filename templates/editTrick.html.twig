@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block javascripts %}
-<script src="{{ asset('assets/js/trick.js') }}" defer></script>
+<script src="{{ asset('assets/js/trick.js') }}"></script>
 {% endblock %}
 
 {% block content %}
@@ -17,7 +17,7 @@
         <div class="align-self-end">
             <button class="btn btn-home-grid my-auto rounded shadow-lg modal-button" data-bs-toggle="modal"
                 data-bs-target="#exampleModal" data-trick="{{ trick.id }}">
-                <i class="fa fa-trash fa-xl p-1" style='color: #fafafacc'></i>
+                <i class="fa fa-trash fa-xl p-1 text-danger"></i>
             </button>
         </div>
         {% endif %}
@@ -29,116 +29,88 @@
 </header>
 <!-- Trick Section-->
 
-<section class="page-section portfolio d-flex flex-column align-items-center p-5" id="add-trick">
+<section class="page-section portfolio d-flex flex-column align-items-center" id="add-trick">
 
-    <form action="..." method="post" enctype="multipart/form-data">
-
-        <!--Trick description-->
-
-        <h3 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-4" id="trick-list">
-            Edit {{ trick.name }} Description
-        </h3>
-
-        <div class="form-group">
-            <div class="input-group input-group-lg mb-4">
-                <input type="text" name="name" class="form-control text-white rounded" placeholder="Trick Name" value="{{ trick.name }}" required>
-            </div>
-        </div>
-
-        <div class="form-group input-group input-group-lg mb-4">
-            <select class="form-control rounded" name="trickGroup" id="trickGroup">
-                {% for category in categories %}
-                <option value="{{ category.id }}" {{ (category.name == trick.category.name ) ? "selected" : ""}}>{{ category.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="form-group">
-            <div class="input-group input-group-lg mb-4">
-                <textarea name="description" id="description" class="form-control text-white rounded" rows='5' cols="50"
-                    placeholder="Post a Trick description" required>{{ trick.description }}</textarea>
-            </div>
-        </div>
-
-        <!--Trick Media-->
-
-        <h3 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-4" id="trick-list">
-            Edit {{ trick.name }} Videos
-        </h3>
-
-        <div class="mb-4">
-            <p class="mb-2" style='color: #fafafacc'>The video url should look like this :</p>
-            <p style='color: #fafafacc; font-style: italic;'>https://www.youtube.com/watch?v=fNPQTlEKkJk</p>
-        </div>
-
+    {{ form_start(trickForm, {'attr': {'class': 'w-100 p-5' }}) }}
+    <h2 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-4" id="trick-list">
+        Edit Description
+    </h2>
+    <div class="form-group mb-4">
+        {{ form_row(trickForm.name, { 'attr':{'class' : 'form-control rounded'}}) }}
+    </div>
+    <div class="form-group mb-4">
+        {{ form_row(trickForm.category) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(trickForm.description, { 'attr':{'class' : 'form-control rounded'}}) }}
+    </div>
+    <h2 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-4" id="trick-list">
+        Edit Videos
+    </h2>
+    <p class="text-warning m-0">
+        Your video url should look like this:
+    </p>
+    <p class="text-warning font-italic m-0">
+        https://www.youtube.com/watch?v=fNPQTlEKkJk
+    </p>
+    <ul class="videos p-0" data-index="{{ trickForm.videos|length > 0 ? trickForm.videos|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ form_row(trickForm.videos.vars.prototype)|e('html_attr') }}">
         {% set myVal = 1 %}
-        {% for media in trick.media %}
-        {% if media.type == "video" %}
-
-        <div class="input-group input-group-lg mb-5">
-            <button class="btn btn-outline-danger" type="button" id="button-addon-image">Delete video n°{{ myVal }}</button>
-            <input type="url" class="form-control rounded" name="url" placeholder="Edit a youtube trick url here" pattern="https://.*" aria-label="Example text with button addon" aria-describedby="button-addon1" value="{{ media.content}}">
-        </div>
+        {% for videoField in trickForm.videos %}
+        <li>
+            {{ form_label(trickForm.videos, 'Edit video n°'~ myVal , {'label_attr': {'class': 'text-light'}}) }}
+            {{ form_row(videoField) }}
+        </li>
         {% set myVal = myVal + 1 %}
-        {% endif %}
         {% endfor %}
-        
-        <!--   <div class="input-group input-group-lg mb-4 ">
-                <input type="url" class="form-control rounded" name="url" id="url" placeholder="Edit a youtube trick url here"
-                    pattern="https://.*" required>
-            </div>-->
-       
-        
-        
-
-        <p class="mb-2" style='color: #fafafacc'>Add a new video url which should look like this :</p>
-        <p class="mb-4" style='color: #fafafacc; font-style: italic;'>https://www.youtube.com/watch?v=fNPQTlEKkJk</p>
-
-        <div class="input-group input-group-lg mb-4 ">
-            <input type="url" class="form-control rounded" name="url" id="url" pattern="https://.*" placeholder="Add a new youtube trick url here" pattern="https://.*" required >
-        </div>
-
-
-
-
-        <h3 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-4" id="trick-list">
-            Edit {{ trick.name }} Images
-        </h3>
-
-        <p class="mb-4" style='color: #fafafacc'>Add a new {{ trick.name }} featured image in 16/9 format :</p>
-
-        {% for media in trick.media %}
-        {% if media.isFeaturedImage %}
-        <div class="input-group input-group-lg mb-5">
-            <input class="form-control pl-0" type="file" id="formFile" value="{{ media.content }}">
-        </div>
-        {% endif %}
-        {% endfor %}
-
+    </ul>
+    <button type="button" class="add_item_link_video btn btn-outline-success btn-lg mt-1"
+        data-collection-holder-class="videos">
+        Add a new video
+    </button>
+    <h2 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-4" id="trick-list">
+        Edit Images
+    </h2>
+    <p class="text-warning m-0">
+        Select images in jpg/png and 16/9 format:
+    </p>
+    <ul class="images p-0" data-index="{{ trickForm.images|length > 0 ? trickForm.images|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ form_row(trickForm.images.vars.prototype)|e('html_attr') }}">
         {% set myVal2 = 1 %}
-        {% for media in trick.media %}
-        {% if (media.type == "image") and (media.isFeaturedImage == false) %}
-        <p class="mb-4" style='color: #fafafacc'>Edit {{ trick.name }} images in 16/9 format :</p>
-        <div class="input-group input-group-lg mb-5">
-            <button class="btn btn-outline-danger" type="button" id="inputGroupFileAddon03">Delete image n° {{ myVal2 }} </button>
-            <input type="file" class="form-control" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" aria-label="Upload" value="{{ media.content }}">
-        </div>
+        {% for imageField in trickForm.images %}
+        <li>
+            {% if imageField.vars["data"].path is not null %}
+            <div class="col-6 p-2 item">
+                <div class="card h-100 d-flex flex-column">
+                    <a href="{{ asset('assets/uploads/images/'~ imageField.vars["data"].path ) }}"
+                        class="rounded-top d-block" target="_blank">
+                        <img src="{{ asset('assets/uploads/images/'~ imageField.vars["data"].path ) }}" width="100%">
+                    </a>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center">
+                            <div class="d-flex">
+                                <i class="fa fa-image fa-2xl my-auto" class="text-grey"></i>
+                                <h5 class="card-title my-auto mx-3">Image n°{{myVal2}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {{ form_label(trickForm.images, 'Edit image n°'~ myVal2 , {'label_attr': {'class': 'text-light'}}) }}
+            {{ form_row(imageField) }}
+        </li>
         {% set myVal2 = myVal2 + 1 %}
-        {% endif %}
         {% endfor %}
-
-        <p class="mb-4" style='color: #fafafacc'>Add a new {{ trick.name }} image in 16/9 format :</p>
-
-        <div class="input-group input-group-lg mb-4">
-            <input class="form-control pl-0" type="file" id="formFileMultiple" multiple>
-        </div>
-
-        <div class="d-flex justify-content-center">
-            <input type="submit" name="submit" id="submit"
-                class="btn btn-home-grid mx-3 my-4 my-xl-auto  rounded shadow-lg" value="Save this Trick">
-            </input>
-        </div>
-
-    </form>
+    </ul>
+    <button type="button" class="add_item_link_image btn btn-outline-success btn-lg mt-1"
+        data-collection-holder-class="images">
+        Add a new image
+    </button>
+    <div class="d-flex justify-content-center m5">
+        {{ form_row(trickForm.save) }}
+    </div>
+    {{ form_end(trickForm) }}
 
 </section>
 

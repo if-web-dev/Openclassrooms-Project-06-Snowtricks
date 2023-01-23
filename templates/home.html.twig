@@ -62,15 +62,18 @@
     </a>
     <div>
         <!-- Trick Section Heading-->
-        <h2 class="page-section-heading text-center text-uppercase text-primary mb-5" id="trick-list">
+        <h2 class="page-section-heading text-center text-uppercase text-primary mb-2" id="trick-list">
             Trick List
         </h2>
+        <p class="text-primary text-center mb-4">
+            There is currently {{ tricks|length }} tricks
+        </p>
 
         {% if app.user and app.user.isVerified == true %}
         <!--Add a Trick button-->
         <div class="text-center">
             <a href="{{ path('trick_add') }}" class="btn btn-home-grid btn-lg load mb-5" style="color: #fafafacc">
-                <i class="fa fa-plus" style='color: #fafafacc'></i>
+                <i class="fa fa-plus text-grey"></i>
                 Add a Trick
             </a>
         </div>
@@ -105,12 +108,12 @@
                             <div class="d-flex">
                                 <a href="{{ path('trick_edit', {'slug': trick.slug }) }}"
                                     class="btn btn-home-grid mx-3 my-auto rounded">
-                                    <i class="fa fa-pen" style='color: #fafafacc'></i>
+                                    <i class="fa fa-pen text-warning"></i>
                                 </a>
                                 <!-- Call delete modal-->
                                 <button href="#" class="modal-button btn btn-home-grid my-auto rounded"
                                     data-bs-toggle="modal" data-bs-target="#exampleModal" data-trick="{{ trick.id }}">
-                                    <i class="fa fa-trash" style='color: #fafafacc'></i>
+                                    <i class="fa fa-trash text-danger"></i>
                                 </button>
                                 <!---->
                             </div>
@@ -124,13 +127,16 @@
     </div>
     <!-- load more -->
     <div class="text-center">
-        <button type="button" class="btn btn-home-grid btn-lg load mb-5" id="loadMore" data-type="+" style="color: #fafafacc">
-            <i class="fa fa-plus" style='color: #fafafacc'></i>
+        <button type="button" class="btn btn-home-grid btn-lg load" id="loadMore" data-type="+" style="color: #fafafacc">
+            <i class="fa fa-plus text-grey"></i>
             Load More
         </button>
     </div>
 </section>
 
+{% for trick in tricks %}
 {% include "modals/trick.modals.html.twig" %}
+{% endfor %}
+
 
 {% endblock %}
