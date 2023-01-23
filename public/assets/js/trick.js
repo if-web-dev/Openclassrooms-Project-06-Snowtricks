@@ -109,20 +109,3 @@ document
     .forEach((item) => {
         addImageFormDeleteLink(item)
     })
-
-
-$(".removePicture").click( function() {
-    console.log('mimpo');
-    let pictureId = $(this).attr("data-picture-id");
-    let link = "{{ path('API_remove_picture') }}"
-    $.ajax({
-        url: link,
-        method: "POST",
-        data: {pictureID: pictureId},
-        success: function(res)
-        {
-          console.log(res);
-            
-        }
-    });
-})

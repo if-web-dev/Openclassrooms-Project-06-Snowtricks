@@ -18,7 +18,7 @@ class VideoType extends AbstractType
                     'label' => false,
                     'attr' => [
                         'placeholder' => 'Add a Youtube video url',
-                        'class' => 'form-control rounded mt-3'
+                        'class' => 'form-control rounded'
                 
                     ],
                     'row_attr' => [

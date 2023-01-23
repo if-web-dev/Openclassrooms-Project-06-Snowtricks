@@ -73,7 +73,7 @@
         <!--Add a Trick button-->
         <div class="text-center">
             <a href="{{ path('trick_add') }}" class="btn btn-home-grid btn-lg load mb-5" style="color: #fafafacc">
-                <i class="fa fa-plus" style='color: #fafafacc'></i>
+                <i class="fa fa-plus text-grey"></i>
                 Add a Trick
             </a>
         </div>
@@ -128,12 +128,15 @@
     <!-- load more -->
     <div class="text-center">
         <button type="button" class="btn btn-home-grid btn-lg load" id="loadMore" data-type="+" style="color: #fafafacc">
-            <i class="fa fa-plus" style='color: #fafafacc'></i>
+            <i class="fa fa-plus text-grey"></i>
             Load More
         </button>
     </div>
 </section>
 
+{% for trick in tricks %}
 {% include "modals/trick.modals.html.twig" %}
+{% endfor %}
+
 
 {% endblock %}

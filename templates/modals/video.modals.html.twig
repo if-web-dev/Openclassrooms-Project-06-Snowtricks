@@ -1,4 +1,4 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalVideo{{video.id}}" tabindex="-1" aria-labelledby="modalVideoLabel" aria-hidden="true">
     <div class="modal-dialog d-flex align-items-center">
         <div class="modal-content">
             <div class="modal-header">
@@ -6,12 +6,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Are you sure to want to delete this trick?
+                Are you sure to want to delete this video?
             </div>
-            <input type="hidden" id="trickId">
             <div class="modal-footer">
-                <form class="col-6" method="post" action="{{ path('trick_delete', {'id': trick.id}) }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">
+                <form class="col-6" method="post" action="{{ path('media_delete_video', {'id': video.id}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ video.id) }}">
                     <button class="btn btn-outline-success w-100" >Sure !</button>
                 </form>
                 <button type="button" class="btn btn-outline-danger col-6" data-bs-dismiss="modal">Cancel</button>
@@ -19,4 +18,3 @@
         </div>
     </div>
 </div>
-

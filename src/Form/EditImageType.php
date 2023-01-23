@@ -22,7 +22,7 @@ class EditImageType extends AbstractType
                 'by_reference' => false,
                 'required' => false,
                 'row_attr' => [
-                    'class' => 'input-group input-group-lg mb-3'
+                    'class' => 'input-group input-group-lg'
                 ],
                 'attr' => [
                     'class' => 'form-control rounded',

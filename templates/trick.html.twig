@@ -28,11 +28,11 @@
         <div class="align-self-end">
             <a href="{{ path('trick_edit', {"slug": trick.slug }) }}"
                 class="btn btn-home-grid mx-3 my-auto rounded shadow-lg">
-                <i class="fa fa-pen fa-xl p-1 text-warning" style='color: #fafafacc'></i>
+                <i class="fa fa-pen fa-xl p-1 text-warning text-grey"></i>
             </a>
             <button class="btn btn-home-grid my-auto rounded shadow-lg" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
-                <i class="fa fa-trash fa-xl p-1 text-danger" style='color: #fafafacc'></i>
+                <i class="fa fa-trash fa-xl p-1 text-danger text-grey"></i>
             </button>
         </div>
         {% endif %}
@@ -63,14 +63,14 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-center">
                         <div class="d-flex">
-                            <i class="fa-brands fa-youtube fa-2xl my-auto" style="color: #ff0000;"></i>
+                            <i class="fa-brands fa-youtube fa-2xl my-auto text-danger"></i>
                             <h5 class="card-title my-auto mx-3">Video</h5>
                         </div>
                         {% if app.user and app.user.isVerified == true %}
                         <div class="d-flex justify-content-center">
                             <button href="#" class="btn btn-home-grid my-auto rounded" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">
-                                <i class="fa fa-trash" style='color: #fafafacc'></i>
+                                data-bs-target="#modalVideo{{video.id}}">
+                                <i class="fa fa-trash text-danger"></i>
                             </button>
                         </div>
                         {% endif %}
@@ -83,21 +83,21 @@
         {% for image in trick.images %}
         <div class="col-lg-3 col-dm-4 col-sm-6 col p-2" style="max-width: 25rem; max-height: 335px;">
             <div class="card h-100 d-flex flex-column">
-                <a href="{{ asset('assets/uploads/images/'~ trick.images[0].path ) }}" class="rounded-top d-block"
+                <a href="{{ asset('assets/uploads/images/'~ image.path ) }}" class="rounded-top d-block"
                     target="_blank">
-                    <img src="{{ asset('assets/uploads/images/'~ trick.images[0].path ) }}" width="100%">
+                    <img src="{{ asset('assets/uploads/images/'~ image.path ) }}" width="100%">
                 </a>
                 <div class="card-body">
                     <div class="d-flex justify-content-center">
                         <div class="d-flex">
-                            <i class="fa fa-image fa-2xl my-auto" style='color: #fafafacc'></i>
+                            <i class="fa fa-image fa-2xl my-auto text-grey"></i>
                             <h5 class="card-title my-auto mx-3">Image</h5>
                         </div>
                         {% if app.user and app.user.isVerified == true %}
                         <div class="d-flex justify-content-center">
                             <button href="#" class="btn btn-home-grid my-auto rounded" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">
-                                <i class="fa fa-trash" style='color: #fafafacc'></i>
+                                data-bs-target="#modalImage{{image.id}}">
+                                <i class="fa fa-trash text-danger"></i>
                             </button>
                         </div>
                         {% endif %}
@@ -114,7 +114,7 @@
         <h3 class="page-section-heading text-center text-uppercase text-primary mb-5 pt-5" id="trick-list">
             Description
         </h3>
-        <div class="container" style='color: #fafafacc'>
+        <div class="container text-grey">
             <p>{{ trick.description}}</p>
         </div>
         <!-- Trick Informations-->
@@ -139,7 +139,7 @@
         <div id="comment" class="mb-5">
             {% for comment in comments %}
             <div class="comment my-4 element">
-                <div class="comment-body d-flex w-100" style='color: #fafafacc'>
+                <div class="comment-body d-flex w-100 text-grey">
                     <div class="col-4 d-flex justify-content-between">
                         <i class="fa fa-user-circle-o fa-4x my-auto"></i>
                         <h5 class="m-auto">
@@ -159,14 +159,25 @@
         <!-- Load more -->
         {% if comments is not empty %}
         <div class="d-flex justify-content-center align-items-center">
-            <button class="btn btn-lg btn-home-grid load mx-3 my-auto" id="loadMore" data-type="+" style="color: #fafafacc">
-                <!--<i class="fa fa-spinner" style='color: #fafafacc'></i>-->
+            <button class="btn btn-lg btn-home-grid load mx-3 my-auto" id="loadMore" data-type="+"
+                style="color: #fafafacc">
+                <!--<i class="fa fa-spinner text-grey"></i>-->
             </button>
         </div>
         {% endif %}
     </div>
 </section>
 
+<!--image delete modal-->
+{% for image in trick.images %}
+{% include "modals/image.modals.html.twig" %}   
+{% endfor %}
+<!--video delete modal-->
+{% for video in trick.videos %}
+{% include "modals/video.modals.html.twig" %}   
+{% endfor %}
+<!--trick modal-->
 {% include "modals/trick.modals.html.twig" %}
+
 
 {% endblock %}

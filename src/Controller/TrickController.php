@@ -21,7 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TrickController extends AbstractController
 {   
 
-    #[Route('/add', 'add', methods: ['GET', 'POST'])]
+    #[Route('/add', 'add')]
     public function addTrick(CategoryRepository $categories, 
                             EntityManagerInterface $em, 
                             Request $request, 
@@ -75,7 +75,7 @@ class TrickController extends AbstractController
     }
 
 
-    #[Route('/{slug}', 'details', methods: ['GET', 'POST'])]
+    #[Route('/{slug}', 'details')]
     public function details(Trick $trick, Request $request, EntityManagerInterface $entityManager): Response
     {
 
@@ -116,7 +116,7 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route('/edit/{slug}', 'edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{slug}', 'edit')]
     public function editTrick(Trick $trick,
                               EntityManagerInterface $em, 
                               Request $request, 
@@ -165,6 +165,21 @@ class TrickController extends AbstractController
             'trickForm' => $trickForm->createView(),
             'trick' => $trick,
         ]);
+    }
+
+    #[Route('/delete/{id}', name: 'delete')]
+    public function deleteTrick(Request $request, 
+                                Trick $trick,
+                                EntityManagerInterface $em): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
+            $em->remove($trick);
+            $em->flush();
+
+            $this->addFlash('success', 'Your Trick has been delete successfully !');
+        }
+
+        return $this->redirectToRoute('home.index');
     }
 }
 
