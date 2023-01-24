@@ -49,22 +49,28 @@
 }
 
 .form-control {
-    height: 48px;
-    background: #1a252f;
+    width: 100%;
+    padding: .7rem 1rem;
+    padding-left: 30px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
     color: rgba(255, 255, 255, 0.8) !important;
-    font-size: 14px;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border-radius: 0;
+    background: #1a252f;
+    background-clip: padding-box;
     border: none;
     border-bottom: 1px solid #99deff;
-    padding-left: 30px;
-    padding-right: 0;
-    letter-spacing: 1px;
-    -webkit-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
-}
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  }
+
+  input[type=file] {
+    padding: .375rem .75rem !important;
+    line-height: 2;
+  }
 
 ::placeholder {
     color: white !important;

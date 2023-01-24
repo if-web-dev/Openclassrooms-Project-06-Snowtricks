@@ -60,23 +60,6 @@ form {
     max-width: 800px !important;
 }
 
-/*.form-control {
-    background: #1a252f;
-    color: rgba(255, 255, 255, 0.8) !important;
-    font-size: 14px;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border-radius: 0;
-    border: none;
-    border-bottom: 1px solid #99deff;
-    padding-left: 30px;
-    padding-right: 0;
-    letter-spacing: 1px;
-    -webkit-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
-}*/
-
 .form-control {
     display: block;
     width: 100%;
@@ -94,7 +77,14 @@ form {
     appearance: none;
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-  }
+}
+
+.avatar {
+    vertical-align: middle !important;
+    width: 64px !important;
+    height: 64px !important;
+    border-radius: 50% !important;
+}
 
 
 ::placeholder {

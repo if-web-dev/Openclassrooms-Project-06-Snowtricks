@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Service\ImageUploader;
 use App\Service\SendMailService;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
@@ -18,7 +19,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, SendMailService $mail): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, SendMailService $mail, ImageUploader $imageUploader): Response
     {
         $user = new User();
       
@@ -33,6 +34,9 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            $avatar = $imageUploader->upload($form->get('avatar')->getData());
+            $user->setAvatar($avatar);
 
             // set a User token when creating a user
             $user->setToken(rand(1, 9999));

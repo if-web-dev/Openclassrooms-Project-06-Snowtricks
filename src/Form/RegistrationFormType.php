@@ -4,14 +4,17 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -67,7 +70,34 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-        ;
+            ->add('avatar', FileType::class, [
+                'label' => 'Choose an avatar (jpg/png)',
+                'label_attr' => ['class' => 'text-grey'],
+                'row_attr' => ['class' => 'flex flex-col'],
+                'mapped' => false,
+                // make it optional so you don't have to re-upload the img file on each edit
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please add an image',
+                    ]),
+                    new File([
+                        'maxSize' => '1024k',
+                        'maxSizeMessage' => 'Your file is too heavy',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Add an image with right format',
+                    ]),
+                ],
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Get Started',
+                'attr' => [
+                    'class' => 'btn btn-login load my-auto btn-lg d-block mx-auto mt-4 rounded shadow-lg',
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
