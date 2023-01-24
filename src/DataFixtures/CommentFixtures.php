@@ -16,7 +16,7 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $Comments =[ 
-            'It\' a very nice trick', 'Waaaa what the... awesome trick', 'Someone can explain better how can we do that?', 'How long trainning to do this?', 'How long trainning to do this?', 'Too risky',
+            'It\'s a very nice trick', 'Waaaa what the... awesome trick', 'Someone can explain better how can we do that?', 'How long trainning to do this?', 'How long trainning to do this?', 'Too risky',
         ];
 
         $author = $this->getReference(UserFixtures::USER_REFERENCE);

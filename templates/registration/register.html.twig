@@ -16,12 +16,10 @@
                     <a href="index.html" class="d-flex align-items-center justify-content-center p-4">
                         <img src="assets/images/lunette.png" width="100%" alt="">
                     </a>
-                    <h3 class="text-center mb-0" style="color: #fafafacc">Welcome</h3>
+                    <h3 class="text-center text-grey mb-0">Welcome</h3>
                     <p class="text-center" style="color: #fafafacc">Create an account by entering the information below
                     </p>
-
                     {{ form_start(registrationForm) }}
-
                     <div class="form-group">
                         <div class="icon d-flex align-items-center justify-content-center">
                             <span class="fa fa-user"></span>
@@ -29,25 +27,27 @@
                         {{ form_row(registrationForm.username, { 'attr':{'class' : 'form-control rounded'}}) }}
                     </div>
                     <div class="form-group">
-                        <div class="icon d-flex align-items-center justify-content-center"><span
-                                class="fa fa-envelope"></span></div>
-                                {{ form_row(registrationForm.email, { 'attr':{'class' : 'form-control rounded'}}) }}
+                        <div class="icon d-flex align-items-center justify-content-center">
+                            <span class="fa fa-envelope"></span>
+                        </div>
+                        {{ form_row(registrationForm.email, { 'attr':{'class' : 'form-control rounded'}}) }}
                     </div>
                     <div class="form-group">
-                        <div class="icon d-flex align-items-center justify-content-center"><span
-                                class="fa fa-lock"></span></div>
-                                {{ form_row(registrationForm.plainPassword, { 'attr':{'class' : 'form-control rounded'}}) }}
+                        <div class="icon d-flex align-items-center justify-content-center">
+                            <span class="fa fa-lock"></span>
+                        </div>
+                        {{ form_row(registrationForm.plainPassword, { 'attr':{'class' : 'form-control rounded'}}) }}
                     </div>
-                    <div class="d-flex justify-content-center pb-3">
-                        <button type="submit" name="submit" class="btn btn-login load mx-3 shadow-lg my-auto">Get
-                            Started</button>
+                    <div class="form-group">
+                        {{ form_row(registrationForm.avatar, { 'attr':{'class' : 'form-control rounded'}}) }}
+                    </div>
+                    <div class="d-flex justify-content-center m5">
+                        {{ form_row(registrationForm.save) }} 
                     </div>
                     <div class="w-100 text-center mb-4 text">
                         <a href="{{ path('app_login') }}">Already an account?</a>
                     </div>
-
                     {{ form_end(registrationForm) }}
-
                 </div>
             </div>
         </div>

@@ -141,7 +141,12 @@
             <div class="comment my-4 element">
                 <div class="comment-body d-flex w-100 text-grey">
                     <div class="col-4 d-flex justify-content-between">
+                        {#<i class="fa fa-user-circle-o fa-4x my-auto"></i>#}
+                        {% if comment.author.avatar is not empty %}
+                        <img src="{{ asset('assets/uploads/images/'~ comment.author.avatar ) }}" alt="avatar" class="avatar my-auto">
+                        {% else %}
                         <i class="fa fa-user-circle-o fa-4x my-auto"></i>
+                        {% endif %}  
                         <h5 class="m-auto">
                             {{ comment.author.username}}
                         </h5>
