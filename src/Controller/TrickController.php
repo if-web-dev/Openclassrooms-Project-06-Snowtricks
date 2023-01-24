@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -22,6 +23,7 @@ class TrickController extends AbstractController
 {   
 
     #[Route('/add', 'add')]
+    #[IsGranted('ROLE_USER')]
     public function addTrick(CategoryRepository $categories, 
                             EntityManagerInterface $em, 
                             Request $request, 
@@ -117,6 +119,7 @@ class TrickController extends AbstractController
     }
 
     #[Route('/edit/{slug}', 'edit')]
+    #[IsGranted('ROLE_USER')]
     public function editTrick(Trick $trick,
                               EntityManagerInterface $em, 
                               Request $request, 

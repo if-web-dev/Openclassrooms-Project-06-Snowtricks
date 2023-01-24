@@ -75,6 +75,7 @@ class RegistrationController extends AbstractController
             if($tokenVerifyed->isCombinationValid($token, $user))
             {
                 $user->setIsVerified(true);
+                $user->setRoles(['ROLE_USER']);
                 $em->persist($user);
                 $em->flush();
                 $this->addFlash('success', "User account activated, go to login");

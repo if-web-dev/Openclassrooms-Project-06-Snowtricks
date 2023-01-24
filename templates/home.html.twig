@@ -25,12 +25,6 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         {% endif %}
-        {% if app.user and app.user.isVerified == true %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            Hi <strong>{{ app.user.username }}</strong>, welcome to SnowTricks website
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        {% endif %}
 
         {% include "common/flash.html.twig" %}
 
@@ -69,7 +63,7 @@
             There is currently {{ tricks|length }} tricks
         </p>
 
-        {% if app.user and app.user.isVerified == true %}
+        {% if is_granted('ROLE_USER') %}
         <!--Add a Trick button-->
         <div class="text-center">
             <a href="{{ path('trick_add') }}" class="btn btn-home-grid btn-lg load mb-5" style="color: #fafafacc">
@@ -104,7 +98,7 @@
                                 <h5 class="card-title">{{ trick.name }}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ trick.category.name }}</h6>
                             </div>
-                            {% if app.user and app.user.isVerified == true %}
+                            {% if is_granted('ROLE_USER') %}
                             <div class="d-flex">
                                 <a href="{{ path('trick_edit', {'slug': trick.slug }) }}"
                                     class="btn btn-home-grid mx-3 my-auto rounded">
