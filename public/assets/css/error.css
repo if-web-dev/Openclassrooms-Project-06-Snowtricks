@@ -1,0 +1,13 @@
+/*.error-content {
+    height: calc(100vh - 376px);
+}*/
+
+body {
+    height: 100vh;
+    background: #1a252f !important;
+}
+
+.error-content {
+    height: calc(100vh - 376px);
+    padding-top: 112px;
+}
