@@ -1,0 +1,21 @@
+{% extends "common/template.html.twig" %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/error.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('assets/js/trick.js') }}" defer></script>
+{% endblock %}
+
+
+{% block content %}
+<div class="error-content d-flex flex-column justify-content-center align-items-center text-grey">
+    <h1>Page not found</h1>
+
+    <p class="text-center">
+        The requested page couldn't be located. Checkout for any URL
+        misspelling or <a href="{{ path('home.index') }}">return to the homepage</a>.
+    </p>
+</div> 
+{% endblock %}
