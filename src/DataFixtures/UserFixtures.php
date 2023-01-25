@@ -18,17 +18,17 @@ class UserFixtures extends Fixture
         
 
         $user = new User();
-        $user->setUsername('User')
-            ->setPassword($this->passwordEncoder->hashPassword(
+        $user
+             ->setUsername('User')
+             ->setPassword($this->passwordEncoder->hashPassword(
                 $user,
                 'UserPassword'
-            )
-            )
-            ->setToken(rand(1, 9999))
-            ->setIsVerified(1)
-            ->setEmail('User@user.gmail')
-            ->setRoles(['ROLE_USER'])
-            ->setAvatar("jump1.jpg");
+             ))
+             ->setToken(rand(1, 9999))
+             ->setIsVerified(1)
+             ->setEmail('User@user.gmail')
+             ->setRoles(['ROLE_USER'])
+             ->setAvatar("jump1.jpg");
 
         $this->addReference(self::USER_REFERENCE, $user); 
         $manager->persist($user); 

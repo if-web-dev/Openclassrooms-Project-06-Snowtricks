@@ -24,13 +24,14 @@ class TrickController extends AbstractController
 
     #[Route('/add', 'add')]
     #[IsGranted('ROLE_USER')]
-    public function addTrick(CategoryRepository $categories, 
-                            EntityManagerInterface $em, 
-                            Request $request, 
-                            SluggerInterface $slugger, 
-                            YoutubeThumbnail $youtubeThumbnail,
-                            ImageUploader $imageUploader): Response
-    {
+    public function addTrick(
+        CategoryRepository $categories, 
+        EntityManagerInterface $em, 
+        Request $request, 
+        SluggerInterface $slugger, 
+        YoutubeThumbnail $youtubeThumbnail,
+        ImageUploader $imageUploader
+    ): Response {
 
         $trick = new Trick();
 
@@ -78,8 +79,11 @@ class TrickController extends AbstractController
 
 
     #[Route('/{slug}', 'details')]
-    public function details(Trick $trick, Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function details(
+        Trick $trick, 
+        Request $request, 
+        EntityManagerInterface $entityManager
+    ): Response {
 
         $comment = new Comment;
         $commentForm = $this->createForm(CommentType::class, $comment);
@@ -101,15 +105,8 @@ class TrickController extends AbstractController
         }
 
         $comments = $entityManager
-            ->getRepository(Comment::class)
-            ->findBy(
-                [
-                    'trick' => $trick->getId(),
-                ],
-                [
-                    'createdAt' => 'DESC',
-                ],
-            );
+                                 ->getRepository(Comment::class)
+                                 ->findBy(['trick' => $trick->getId()],['createdAt' => 'DESC']);
         
         return $this->render('trick.html.twig', [
             'trick' => $trick,
@@ -120,21 +117,22 @@ class TrickController extends AbstractController
 
     #[Route('/edit/{slug}', 'edit')]
     #[IsGranted('ROLE_USER')]
-    public function editTrick(Trick $trick,
-                              EntityManagerInterface $em, 
-                              Request $request, 
-                              SluggerInterface $slugger, 
-                              YoutubeThumbnail $youtubeThumbnail,
-                              ImageUploader $imageUploader): Response
-                              
-    {
+    public function editTrick(
+        Trick $trick,
+        EntityManagerInterface $em, 
+        Request $request, 
+        SluggerInterface $slugger, 
+        YoutubeThumbnail $youtubeThumbnail,
+        ImageUploader $imageUploader
+    ): Response {
         $trickForm = $this
-            ->createForm(EditTrickFormType::class, $trick)
-            ->handleRequest($request);
+                         ->createForm(EditTrickFormType::class, $trick)
+                         ->handleRequest($request);
 
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
-            $trick->setAuthor($this->getUser());
-            $trick->setSlug(($slugger->slug($trick->getName()))->lower());
+            $trick
+                  ->setAuthor($this->getUser())
+                  ->setSlug(($slugger->slug($trick->getName()))->lower());
 
 
             //add videos
@@ -164,17 +162,15 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('home.index');
         }
 
-        return $this->render('editTrick.html.twig', [
-            'trickForm' => $trickForm->createView(),
-            'trick' => $trick,
-        ]);
+        return $this->render('editTrick.html.twig', ['trickForm' => $trickForm->createView(),'trick' => $trick]);
     }
 
     #[Route('/delete/{id}', name: 'delete')]
-    public function deleteTrick(Request $request, 
-                                Trick $trick,
-                                EntityManagerInterface $em): Response
-    {
+    public function deleteTrick(
+        Request $request, 
+        Trick $trick,
+        EntityManagerInterface $em
+    ): Response {
         if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
             $em->remove($trick);
             $em->flush();

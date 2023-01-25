@@ -13,17 +13,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
       
-        $media = [
-
-            'https://www.youtube.com/watch?v=5ylWnm4rF1o',
-
-
-            'https://www.youtube.com/watch?v=4vGEOYNGi_c',
-
-
-            'https://www.youtube.com/watch?v=TTgeY_XCvkQ'
-
-        ];
+        $media = ['https://www.youtube.com/watch?v=5ylWnm4rF1o','https://www.youtube.com/watch?v=4vGEOYNGi_c','https://www.youtube.com/watch?v=TTgeY_XCvkQ'];
 
         //for 10 Tricks
         for ($i = 0; $i <= 9; $i++) {
@@ -39,9 +29,10 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
                 $thumbnail = YoutubeThumbnail::getThumbnail($videoUrl);
 
                 $video = new Video();
-                $video->setUrl($videoUrl)
-                    ->setTrick($trick)
-                    ->setThumbnail($thumbnail);
+                $video
+                      ->setUrl($videoUrl)
+                      ->setTrick($trick)
+                      ->setThumbnail($thumbnail);
 
                 $manager->persist($video);
             }

@@ -59,7 +59,7 @@ class AddTrickFormType extends AbstractType
                 'label' => 'Save this Trick',
                 'attr' => [
                     'class' => 'btn btn-home-grid btn-lg d-block mx-auto mt-4 rounded shadow-lg',
-                ],
+                ]
             ]);
     }
 

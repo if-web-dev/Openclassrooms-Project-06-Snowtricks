@@ -2307,7 +2307,7 @@ progress {
   -moz-appearance: none;
   appearance: none;
   border-radius: .25rem;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -5173,7 +5173,7 @@ fieldset:disabled .btn {
 }
 
 .item {
-  max-width: 25rem; 
+  max-width: 25rem;
   max-height: 335px;
 }
 
@@ -5284,7 +5284,7 @@ fieldset:disabled .btn {
 .card-img,
 .card-img-top,
 .card-img-bottom {
- width: 100% !important;
+  width: 100% !important;
 }
 
 .card-img,
@@ -12514,9 +12514,9 @@ html {
 }
 
 @media (max-width: 991px) {
- span.vertical-separation {
-  display: none!important;
- }
+  span.vertical-separation {
+    display: none !important;
+  }
 }
 
 
@@ -12541,5 +12541,3 @@ html {
     padding-bottom: 80px !important;
   }
 }
-
-

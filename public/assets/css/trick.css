@@ -4,7 +4,7 @@ body {
 
 .btn-home-grid {
     background: linear-gradient(var(--bs-secondary), var(--bs-secondary)) padding-box,
-        linear-gradient(to right, var(--bs-secondary), #99deff ) border-box;
+        linear-gradient(to right, var(--bs-secondary), #99deff) border-box;
     background-color: #343a40;
     border: 4px solid transparent;
     text-decoration: none;
@@ -76,7 +76,7 @@ form {
     -moz-appearance: none;
     appearance: none;
     border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 .avatar {
@@ -120,7 +120,7 @@ select {
     background-color: var(--bs-gray) !important;
 }
 
-input[type=file]{
+input[type=file] {
     background-color: var(--bs-gray) !important;
     max-width: 800px;
     font-size: 1.25rem !important;

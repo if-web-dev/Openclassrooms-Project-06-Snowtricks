@@ -10,9 +10,6 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class CommentFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function __construct(
-        
-    ){}
     public function load(ObjectManager $manager): void
     {
         $Comments =[ 
@@ -29,10 +26,11 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
                 
                 $trick = $this->getReference(TrickFixtures::TRICK_REFERENCE . $i);
                 $message = new Comment();
-                $message->setTrick($trick)
+                $message
+                        ->setTrick($trick)
                         ->setAuthor($author)
                         ->setContent($content);
-               
+                        
                 $manager->persist($message); 
             }
             

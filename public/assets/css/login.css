@@ -64,13 +64,13 @@
     -moz-appearance: none;
     appearance: none;
     border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-  }
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
 
-  input[type=file] {
+input[type=file] {
     padding: .375rem .75rem !important;
     line-height: 2;
-  }
+}
 
 ::placeholder {
     color: white !important;
@@ -99,9 +99,9 @@
 @media (max-width: 767px) {
 
     .masthead {
-        display: flex!important;
-        justify-content: center!important;
-        align-items: center!important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
         padding: auto 0;
     }
 

@@ -69,12 +69,13 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
             $category = $this->getReference(CategoryFixtures::CATEGORY_REFERENCE . $randNbr);
 
             $trick = new Trick();
-            $trick->setAuthor($user)
-                ->setName($trickData['name'])
-                ->setSlug(u($this->slugger->slug($trick->getName()))->lower())
-                ->setDescription($trickData['description'])
-                ->setCategory($category)
-            ;
+            $trick
+                  ->setAuthor($user)
+                  ->setName($trickData['name'])
+                  ->setSlug(u($this->slugger->slug($trick->getName()))->lower())
+                  ->setDescription($trickData['description'])
+                  ->setCategory($category);
+                  
             $this->addReference(self::TRICK_REFERENCE . $index, $trick); 
             $manager->persist($trick);
         }

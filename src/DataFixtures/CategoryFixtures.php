@@ -11,13 +11,7 @@ class CategoryFixtures extends Fixture
     public const CATEGORY_REFERENCE = 'category-';
     public function load(ObjectManager $manager): void
     {
-        $categories = [
-            'slide',
-            'grab',
-            'old school',
-            'rotation',
-            'flip'
-        ];
+        $categories = ['slide','grab','old school','rotation','flip'];
 
         foreach($categories as $index => $name){
             $category = new Category();

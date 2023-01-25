@@ -19,8 +19,13 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, SendMailService $mail, ImageUploader $imageUploader): Response
-    {
+    public function register(
+        Request $request, 
+        UserPasswordHasherInterface $userPasswordHasher, 
+        EntityManagerInterface $entityManager, 
+        SendMailService $mail, 
+        ImageUploader $imageUploader
+    ): Response {
         $user = new User();
       
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -63,19 +68,24 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/verif', name: 'verify_user', methods: ['GET'])]
-    public function verifyUser(Request $request, TokenVerifyService $tokenVerifyed, UserRepository $UserRepository, EntityManagerInterface $em ): Response
-    {
+    public function verifyUser(
+        Request $request, 
+        TokenVerifyService $tokenVerifyed, 
+        UserRepository $UserRepository, 
+        EntityManagerInterface $em 
+    ): Response {
 
         $id = $request->query->get('id');
         $token = $request->query->get('token');
         $user = $UserRepository->find($id);
 
-        if(!$user->getIsVerified())
+        if (!$user->getIsVerified())
         {
-            if($tokenVerifyed->isCombinationValid($token, $user))
+            if ($tokenVerifyed->isCombinationValid($token, $user))
             {
-                $user->setIsVerified(true);
-                $user->setRoles(['ROLE_USER']);
+                $user
+                     ->setIsVerified(true)
+                     ->setRoles(['ROLE_USER']);
                 $em->persist($user);
                 $em->flush();
                 $this->addFlash('success', "User account activated, go to login");

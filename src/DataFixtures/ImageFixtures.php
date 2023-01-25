@@ -18,17 +18,17 @@ class ImageFixtures extends Fixture implements DependentFixtureInterface
 
             //add 2 images random
 
-            $trick = $this->getReference(TrickFixtures::TRICK_REFERENCE . $i);
+            $trick = $this->getReference(TrickFixtures::TRICK_REFERENCE.$i);
 
             for ($j = 0; $j <= 1; $j++){
 
                 $imagePath = $Medias[rand(0,2)];
 
                 $image = new Image();
-
-                $image->setPath($imagePath)
+                $image
+                      ->setPath($imagePath)
                       ->setTrick($trick);
-
+                      
                 $manager->persist($image);
 
             }
