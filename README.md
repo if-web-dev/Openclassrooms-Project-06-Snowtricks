@@ -1,5 +1,7 @@
 # Openclassrooms-Project-06-Snowtricks
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/1ccbfe99d0844347a24a4eabc1313dec)](https://www.codacy.com/gh/if-web-dev/Openclassrooms-Project-06-Snowtricks/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=if-web-dev/Openclassrooms-Project-06-Snowtricks&amp;utm_campaign=Badge_Grade)
+
 We present project 6 of the PHP/Symfony application developer course. Develop from A to Z the SnowTricks community website. A website
 which we can post Snowboard Tricks image, videos, tricks descriptions and comments.
 
