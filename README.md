@@ -28,6 +28,7 @@ This project was developed with PHP 8.1, it integrates the bootstrap, jquery, fo
 
 - Locally run your database
 - Run the app with `symfony serve -d`
+- Credentials to change : `User` and `UserPassword`
 
 ## Made with
 
