@@ -19,7 +19,7 @@
 
     <div class=" row justify-content-center align-items-center">
         <!-- Message flash -->
-        {% if app.user and app.user.isVerified == false %}
+        {% if is_granted('ROLE_USER') and app.user.isVerified == false %}
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong>Your account is not acctivated. Resend your activation link</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -63,7 +63,7 @@
             There is currently {{ tricks|length }} tricks
         </p>
 
-        {% if is_granted('ROLE_USER') %}
+        {% if is_granted('ROLE_USER') and app.user.isVerified == true %}
         <!--Add a Trick button-->
         <div class="text-center">
             <a href="{{ path('trick_add') }}" class="btn btn-home-grid btn-lg load mb-5" style="color: #fafafacc">
@@ -98,7 +98,7 @@
                                 <h5 class="card-title">{{ trick.name }}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ trick.category.name }}</h6>
                             </div>
-                            {% if is_granted('ROLE_USER') %}
+                            {% if is_granted('ROLE_USER') and app.user.isVerified == true %}
                             <div class="d-flex">
                                 <a href="{{ path('trick_edit', {'slug': trick.slug }) }}"
                                     class="btn btn-home-grid mx-3 my-auto rounded">

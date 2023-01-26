@@ -16,7 +16,7 @@
 <!-- Masthead-->
 <header class="masthead bg-primary text-white text-center d-flex flex-column px-2">
     <div class="container d-flex align-items-center flex-column">
-        {% if is_granted('ROLE_USER') %}
+        {% if is_granted('ROLE_USER') and app.user.isVerified == true %}
         <!--Message flash-->
         {% for message in app.flashes('success') %}
         <div class="alert alert-success alert-dismissible fade show">
@@ -66,7 +66,7 @@
                             <i class="fa-brands fa-youtube fa-2xl my-auto text-danger"></i>
                             <h5 class="card-title my-auto mx-3">Video</h5>
                         </div>
-                        {% if is_granted('ROLE_USER') %}
+                        {% if is_granted('ROLE_USER') and app.user.isVerified == true %}
                         <div class="d-flex justify-content-center">
                             <button href="#" class="btn btn-home-grid my-auto rounded" data-bs-toggle="modal"
                                 data-bs-target="#modalVideo{{video.id}}">
@@ -93,7 +93,7 @@
                             <i class="fa fa-image fa-2xl my-auto text-grey"></i>
                             <h5 class="card-title my-auto mx-3">Image</h5>
                         </div>
-                        {% if is_granted('ROLE_USER') %}
+                        {% if is_granted('ROLE_USER') and app.user.isVerified == true %}
                         <div class="d-flex justify-content-center">
                             <button href="#" class="btn btn-home-grid my-auto rounded" data-bs-toggle="modal"
                                 data-bs-target="#modalImage{{image.id}}">
@@ -126,7 +126,7 @@
             {% endif %}
         </div>
         <hr>
-        {% if is_granted('ROLE_USER') %}
+        {% if is_granted('ROLE_USER') and app.user.isVerified == true %}
         <!-- Leave a comment -->
         <div class="container py-4">
             <div class="d-flex justify-content-center">
