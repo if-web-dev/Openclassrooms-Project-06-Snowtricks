@@ -12,7 +12,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -45,6 +44,7 @@ class RegistrationController extends AbstractController
 
             // set a User token when creating a user
             $user->setToken(rand(1, 9999));
+            $user->setRoles($user->getRoles());
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -79,7 +79,7 @@ class RegistrationController extends AbstractController
         $token = $request->query->get('token');
         $user = $UserRepository->find($id);
 
-        if (!$user->getIsVerified())
+        if (!$user->getIsVerified()==true)
         {
             if ($tokenVerifyed->isCombinationValid($token, $user))
             {
@@ -95,7 +95,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('home.index');
             
         }
-        $this->addFlash('warning', 'Your account is already activated, go to login page </a>');
+        $this->addFlash('warning', 'Your account is already activated, go to login page');
         return $this->redirectToRoute('home.index');
 
     }

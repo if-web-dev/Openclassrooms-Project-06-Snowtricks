@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
+use App\Entity\User;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Form\AddTrickFormType;
@@ -14,16 +15,16 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 #[Route('/trick', 'trick_', methods: ['GET', 'POST'])]
 class TrickController extends AbstractController
 {   
 
     #[Route('/add', 'add')]
-    #[IsGranted('ROLE_USER')]
+    #[Security("is_granted('ROLE_USER') and user.getIsVerified()")]
     public function addTrick(
         CategoryRepository $categories, 
         EntityManagerInterface $em, 
@@ -116,7 +117,7 @@ class TrickController extends AbstractController
     }
 
     #[Route('/edit/{slug}', 'edit')]
-    #[IsGranted('ROLE_USER')]
+    #[Security("is_granted('ROLE_USER') and user.getIsVerified()")]
     public function editTrick(
         Trick $trick,
         EntityManagerInterface $em, 
@@ -166,6 +167,7 @@ class TrickController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'delete')]
+    #[Security("is_granted('ROLE_USER') and user.getIsVerified()")]
     public function deleteTrick(
         Request $request, 
         Trick $trick,

@@ -11,11 +11,10 @@
 
 {% block content %}
 <div class="error-content d-flex flex-column justify-content-center align-items-center text-grey">
-    <h1>Page not found</h1>
+    <h1>Access Forbidden</h1>
 
     <p class="text-center">
-        The requested page couldn't be located. Checkout for any URL
-        misspelling or <a href="{{ path('home.index') }}">return to the homepage</a>.
+        The access of requested page is forbidden <a href="{{ path('home.index') }}">return to the homepage</a>.
     </p>
 </div> 
 {% endblock %}
