@@ -62,14 +62,14 @@ class SecurityController extends AbstractController
             if($user){
 
               
-                //reset token
+                //reset password token
                 $token = $tokenGenerator->generateToken();
-                $user->setResetToken($token);
+                $user->setToken($token);
                 $entityManager->persist($user);
                 $entityManager->flush();
 
                 //link generated
-                $url = $this->generateUrl('app_reset_password_verif', ['resetToken' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+                $url = $this->generateUrl('app_reset_password_verif', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
 
                 //email datas
                 $context = ['url' => $url, "user" => $user];
@@ -95,16 +95,16 @@ class SecurityController extends AbstractController
         return $this->render('security/forgottenPassword.html.twig', ['requestPassForm' => $form->createView()]);
     }
 
-    #[Route(path: '/resetPasswordVerif/{resetToken}', name: 'app_reset_password_verif')]
+    #[Route(path: '/resetPasswordVerif/{token}', name: 'app_reset_password_verif')]
     public function resetPasswordVerif(
-        string $resetToken,
+        string $token,
         Request $request,
         UserRepository $user,
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $passwordHasher
     ): Response {
         //verify token in database
-        $user = $user->findOneByResetToken($resetToken);
+        $user = $user->findOneByToken($token);
       
         //if matched a real user
         if($user){
@@ -116,7 +116,7 @@ class SecurityController extends AbstractController
             if($form->isSubmitted() and $form->isValid())
             {
                 $user
-                     ->setResetToken(null)
+                     //->setResetToken(null)
                      ->setPassword(
                      $passwordHasher->hashPassword(
                         $user,

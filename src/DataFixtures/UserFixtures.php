@@ -6,17 +6,19 @@ use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class UserFixtures extends Fixture
 {
     public const USER_REFERENCE = 'user';
     public function __construct(
         private UserPasswordHasherInterface $passwordEncoder,
+        private TokenGeneratorInterface $tokenGenerator
     ){}
     public function load(ObjectManager $manager): void
     {
         
-
+        $token = $this->tokenGenerator->generateToken();
         $user = new User();
         $user
              ->setUsername('User')
@@ -24,7 +26,7 @@ class UserFixtures extends Fixture
                 $user,
                 'UserPassword'
              ))
-             ->setToken(rand(1, 9999))
+             ->setToken($token)
              ->setIsVerified(1)
              ->setEmail('User@user.gmail')
              ->setRoles(['ROLE_USER'])

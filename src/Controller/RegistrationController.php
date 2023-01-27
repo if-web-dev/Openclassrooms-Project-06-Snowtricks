@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -23,7 +24,8 @@ class RegistrationController extends AbstractController
         UserPasswordHasherInterface $userPasswordHasher, 
         EntityManagerInterface $entityManager, 
         SendMailService $mail, 
-        ImageUploader $imageUploader
+        ImageUploader $imageUploader,
+        TokenGeneratorInterface $tokenGenerator, 
     ): Response {
         $user = new User();
       
@@ -43,7 +45,8 @@ class RegistrationController extends AbstractController
             $user->setAvatar($avatar);
 
             // set a User token when creating a user
-            $user->setToken(rand(1, 9999));
+            $token = $tokenGenerator->generateToken();
+            $user->setToken($token);
             $user->setRoles($user->getRoles());
 
             $entityManager->persist($user);
