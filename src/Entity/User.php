@@ -34,8 +34,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private ?string $password = null;
 
-    #[ORM\Column(type: 'integer')]
-    private ?int $token = null;
+    #[ORM\Column(type: 'string')]
+    private ?string $token = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Trick::class, orphanRemoval: true)]
     private Collection $Trick;
@@ -47,8 +47,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private ?bool $is_verified = false;
 
-    #[ORM\Column(type: 'string', length: 100, nullable: true)]
-    private ?string $resetToken = null;
+    /*#[ORM\Column(type: 'string', length: 100, nullable: true)]
+    private ?string $resetToken = null;*/
 
     #[Assert\Email(message: 'The email {{ value }} is not a valid email.')]
     #[ORM\Column(type: 'string', length: 255)]
@@ -138,7 +138,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->token;
     }
 
-    public function setToken(int $token): self
+    public function setToken(string $token): self
     {
         $this->token = $token;
 
@@ -229,7 +229,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getResetToken(): ?string
+    /*public function getResetToken(): ?string
     {
         return $this->resetToken;
     }
@@ -239,7 +239,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->resetToken = $resetToken;
 
         return $this;
-    }
+    }*/
 
     public function getAvatar(): ?string
     {
