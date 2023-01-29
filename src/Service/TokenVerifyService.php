@@ -4,9 +4,9 @@ namespace App\Service;
 
 class TokenVerifyService
 {
-    public function isValid (int $token): bool
+    public function isValid (string $token): bool
     {
-        if (is_integer($token) and $token >= 1 and $token <= 9999){
+        if (is_string($token)){
 
             return true;
         }
@@ -14,7 +14,7 @@ class TokenVerifyService
         return false;
     }
 
-    public function isCombinationValid (int $token,mixed $user): bool
+    public function isCombinationValid (string $token,mixed $user): bool
     {
         if ($this->isValid($token)) {
 

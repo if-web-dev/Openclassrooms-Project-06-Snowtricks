@@ -47,9 +47,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private ?bool $is_verified = false;
 
-    /*#[ORM\Column(type: 'string', length: 100, nullable: true)]
-    private ?string $resetToken = null;*/
-
     #[Assert\Email(message: 'The email {{ value }} is not a valid email.')]
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $email = null;
@@ -133,7 +130,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getToken(): ?int
+    public function getToken(): ?string
     {
         return $this->token;
     }
@@ -229,18 +226,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /*public function getResetToken(): ?string
-    {
-        return $this->resetToken;
-    }
-
-    public function setResetToken($resetToken): self
-    {
-        $this->resetToken = $resetToken;
-
-        return $this;
-    }*/
-
     public function getAvatar(): ?string
     {
         return $this->avatar;
@@ -252,7 +237,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-
 
 }

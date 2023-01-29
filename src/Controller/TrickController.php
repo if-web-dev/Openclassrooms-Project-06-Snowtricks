@@ -131,10 +131,11 @@ class TrickController extends AbstractController
                          ->handleRequest($request);
 
         if ($trickForm->isSubmitted() && $trickForm->isValid()) {
+            $dateTime = new \DateTimeImmutable();
             $trick
                   ->setAuthor($this->getUser())
-                  ->setSlug(($slugger->slug($trick->getName()))->lower());
-
+                  ->setSlug(($slugger->slug($trick->getName()))->lower())
+                  ->setUpdatedAt($dateTime);
 
             //add videos
             foreach ($trickForm->get('videos')->getData() as $video) {
