@@ -50,10 +50,14 @@
     <h3 class="page-section-heading text-center text-uppercase text-primary mb-5" id="trick-list">
         Media
     </h3>
+    <div class="text-center d-lg-none" id="displayMedia" >
+        <button type="button" class="btn btn-home-grid btn-lg load text-grey" id="btnDisplayMedias">
+            Display Medias
+        </button>
+    </div>
     {% endif %}
-
     <!--Trick Media-->
-    <div class="d-flex flex-row flex-wrap justify-content-center p-5">
+    <div class="d-none flex-row flex-wrap justify-content-center p-5 media d-lg-flex">
         {% for video in trick.videos %}
         <div class="col-lg-3 col-dm-4 col-sm-6 col p-2" style="max-width: 25rem; max-height: 335px;">
             <div class="card h-100 d-flex flex-column">

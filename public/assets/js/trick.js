@@ -109,3 +109,15 @@ document
     .forEach((item) => {
         addImageFormDeleteLink(item)
     })
+
+/*------ media mobile button ------*/
+
+$('#btnDisplayMedias').click(function() {
+    if($('.media').hasClass('d-none')){
+        $('.media').removeClass('d-none').addClass('d-flex');
+        $('#btnDisplayMedias').html("Hide Medias");
+    }else{
+        $('.media').removeClass('d-flex').addClass('d-none');
+        $('#btnDisplayMedias').html("Display Medias");
+    }
+});
